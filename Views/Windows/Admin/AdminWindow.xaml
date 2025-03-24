@@ -1,0 +1,89 @@
+﻿<Window x:Class="Library.Views.Windows.Admin.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Library.Views.Windows.Admin"
+        mc:Ignorable="d"
+        Title="Admin"
+        Height="700"
+        Width="1400"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0"
+              Background="{DynamicResource MaterialDesign.Brush.Primary}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <StackPanel Orientation="Horizontal"
+                            Height="90">
+                    <Image Source="/Images/logo.png"
+                           Height="70"
+                           Width="70" />
+                    <TextBlock Text="LIBRARY"
+                               Style="{StaticResource Title}" />
+                </StackPanel>
+                <ListBox SelectionMode="Single"
+                         SelectionChanged="ListBox_SelectionChanged"
+                         Name="ListBox1">
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Account"
+                                                     Style="{StaticResource MenuIcon}" />
+                            <TextBlock Text="Employees"
+                                       Style="{StaticResource TextBlockMenu}" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Book"
+                                                     Style="{StaticResource MenuIcon}" />
+                            <TextBlock Text="Books"
+                                       Style="{StaticResource TextBlockMenu}" />
+                        </StackPanel>
+                    </ListBoxItem>
+                </ListBox>
+            </StackPanel>
+            <StackPanel Grid.Row="1"
+                        Margin="0 20 0 0">
+                <ListBox SelectionMode="Single"
+                         SelectionChanged="ListBox_SelectionChanged"
+                         Name="ListBox2">
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Settings"
+                                                     Style="{StaticResource MenuIcon}" />
+                            <TextBlock Text="Settings"
+                                       Style="{StaticResource TextBlockMenu}" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Logout"
+                                                     Style="{StaticResource MenuIcon}" />
+                            <TextBlock Text="Log out"
+                                       Style="{StaticResource TextBlockMenu}" />
+                        </StackPanel>
+                    </ListBoxItem>
+                </ListBox>
+            </StackPanel>
+        </Grid>
+        <!-- Glavni sadržaj -->
+        <Grid Grid.Column="1"
+              Background="{DynamicResource MaterialDesignPaper}">
+            <TextBlock Text="Dobrodošli!"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Foreground="{DynamicResource MaterialDesignBody}"/>
+        </Grid>
+    </Grid>
+</Window>
