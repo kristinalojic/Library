@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Library.Models.Entities;
+
+public partial class Employee
+{
+    public int Id { get; set; }
+
+    public string Name { get; set; } = null!;
+
+    public string Surname { get; set; } = null!;
+
+    public string Username { get; set; } = null!;
+
+    public string Pasword { get; set; } = null!;
+
+    public sbyte ActiveAccount { get; set; }
+
+    public sbyte? AccountType { get; set; }
+
+    public string Jbmg { get; set; } = null!;
+
+    public string Phone { get; set; } = null!;
+
+    public string Email { get; set; } = null!;
+
+    public string Adress { get; set; } = null!;
+
+    public virtual ICollection<Setting> Settings { get; set; } = new List<Setting>();
+}
