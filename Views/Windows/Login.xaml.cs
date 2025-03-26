@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,20 @@ namespace Library.Views.Windows
         public Login()
         {
             InitializeComponent();
+            DataContext = new LoginViewModel(this);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            UsernameTextBox.Focus();
+        }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is LoginViewModel viewModel)
+            {
+                viewModel.Password = ((PasswordBox)sender).Password;
+            }
         }
     }
 }

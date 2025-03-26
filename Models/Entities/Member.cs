@@ -15,7 +15,7 @@ public partial class Member
 
     public string Phone { get; set; } = null!;
 
-    public string Adress { get; set; } = null!;
+    public string Address { get; set; } = null!;
 
     public virtual ICollection<Loan> Loans { get; set; } = new List<Loan>();
 

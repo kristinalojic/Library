@@ -13,7 +13,7 @@ public partial class Employee
 
     public string Username { get; set; } = null!;
 
-    public string Pasword { get; set; } = null!;
+    public string Password { get; set; } = null!;
 
     public sbyte ActiveAccount { get; set; }
 
@@ -25,7 +25,7 @@ public partial class Employee
 
     public string Email { get; set; } = null!;
 
-    public string Adress { get; set; } = null!;
+    public string Address { get; set; } = null!;
 
     public virtual ICollection<Setting> Settings { get; set; } = new List<Setting>();
 }

@@ -66,7 +66,8 @@
 
     <Style x:Key="ErrorTextBlock" TargetType="TextBlock">
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Foreground" Value="#FF891818"/>
+        <Setter Property="Foreground"
+                Value="#FFF12E2E" />
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -83,10 +84,14 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="Indigo"/>
             </Trigger>
+            <DataTrigger Binding="{Binding IsLoggingIn}"
+                         Value="True">
+                <Setter Property="Background"
+                        Value="Gray" />
+            </DataTrigger>
         </Style.Triggers>
     </Style>
 
-    <!-- ComboBox Style -->
     <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
         <Setter Property="Width" Value="80"/>
         <Setter Property="Foreground" Value="White"/>

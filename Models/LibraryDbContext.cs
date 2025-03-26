@@ -8,13 +8,13 @@ using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 
 namespace Library.Models;
 
-public partial class RestoranDbContext : DbContext
+public partial class LibraryDbContext : DbContext
 {
-    public RestoranDbContext()
+    public LibraryDbContext()
     {
     }
 
-    public RestoranDbContext(DbContextOptions<RestoranDbContext> options)
+    public LibraryDbContext(DbContextOptions<LibraryDbContext> options)
         : base(options)
     {
     }
@@ -36,8 +36,8 @@ public partial class RestoranDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         var config = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())  
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true) 
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build();
 
         var connectionString = config.GetConnectionString("LibraryDb");
@@ -61,7 +61,7 @@ public partial class RestoranDbContext : DbContext
             entity.HasIndex(e => e.GenreId, "fk_book_genre1_idx");
 
             entity.Property(e => e.Author).HasMaxLength(45);
-            entity.Property(e => e.GenreId).HasColumnName("Genre_Id");
+            entity.Property(e => e.GenreId).HasColumnName("genre_Id");
             entity.Property(e => e.Title).HasMaxLength(45);
             entity.Property(e => e.YearOfPublication).HasColumnName("Year_of_publication");
 
@@ -89,13 +89,13 @@ public partial class RestoranDbContext : DbContext
                 .HasDefaultValueSql("'2'")
                 .HasColumnName("Account_type");
             entity.Property(e => e.ActiveAccount).HasColumnName("Active_account");
-            entity.Property(e => e.Adress).HasMaxLength(45);
+            entity.Property(e => e.Address).HasMaxLength(45);
             entity.Property(e => e.Email).HasMaxLength(45);
             entity.Property(e => e.Jbmg)
                 .HasMaxLength(45)
                 .HasColumnName("JBMG");
             entity.Property(e => e.Name).HasMaxLength(15);
-            entity.Property(e => e.Pasword).HasMaxLength(45);
+            entity.Property(e => e.Password).HasMaxLength(45);
             entity.Property(e => e.Phone).HasMaxLength(45);
             entity.Property(e => e.Surname).HasMaxLength(15);
             entity.Property(e => e.Username).HasMaxLength(45);
@@ -122,6 +122,8 @@ public partial class RestoranDbContext : DbContext
 
             entity.HasIndex(e => e.Member, "fk_zaduzivanje_member1_idx");
 
+            entity.Property(e => e.Book).HasColumnName("book");
+            entity.Property(e => e.Member).HasColumnName("member");
             entity.Property(e => e.IssueDate).HasColumnName("Issue_date");
             entity.Property(e => e.DueDate).HasColumnName("Due_date");
 
@@ -147,7 +149,7 @@ public partial class RestoranDbContext : DbContext
             entity.Property(e => e.MembershipCardNumber)
                 .ValueGeneratedNever()
                 .HasColumnName("Membership_card_number");
-            entity.Property(e => e.Adress).HasMaxLength(45);
+            entity.Property(e => e.Address).HasMaxLength(45);
             entity.Property(e => e.Email).HasMaxLength(45);
             entity.Property(e => e.Name).HasMaxLength(15);
             entity.Property(e => e.Phone).HasMaxLength(20);
@@ -164,6 +166,8 @@ public partial class RestoranDbContext : DbContext
 
             entity.HasIndex(e => e.Member, "fk_membership_fees_member1_idx");
 
+            entity.Property(e => e.Member).HasColumnName("member");
+
             entity.HasOne(d => d.MemberNavigation).WithMany(p => p.MembershipFees)
                 .HasForeignKey(d => d.Member)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -179,7 +183,7 @@ public partial class RestoranDbContext : DbContext
             entity.HasIndex(e => e.EmployeeId, "fk_settings_employee1_idx");
 
             entity.Property(e => e.Color).HasMaxLength(45);
-            entity.Property(e => e.EmployeeId).HasColumnName("Employee_Id");
+            entity.Property(e => e.EmployeeId).HasColumnName("employee_Id");
             entity.Property(e => e.Language).HasMaxLength(45);
             entity.Property(e => e.Theme).HasMaxLength(45);
 
