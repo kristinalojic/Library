@@ -9,25 +9,29 @@ namespace Employee_And_Company_Management.Commands
 {
     public class RelayCommand : ICommand
     {
-        private readonly Func<object?, Task> _execute;
-        private readonly Predicate<object?>? _canExecute;
-
-        public RelayCommand(Func<object?, Task> execute, Predicate<object?>? canExecute = null)
-        {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            _canExecute = canExecute;
-        }
-
         public event EventHandler? CanExecuteChanged;
 
-        public bool CanExecute(object? parameter) => _canExecute?.Invoke(parameter) ?? true;
+        private Action<object> _Excute { get; set; }
+        private Predicate<object> _CanExcute { get; set; }
 
-        public async void Execute(object? parameter)
+
+        public RelayCommand(Action<object> ExcuteMethod, Predicate<object> CanExcuteMethod)
         {
-            if (_execute != null)
-            {
-                await _execute(parameter);
-            }
+
+            _Excute = ExcuteMethod;
+            _CanExcute = CanExcuteMethod;
+
+        }
+
+
+        public bool CanExecute(object? parameter)
+        {
+            return _CanExcute(parameter);
+        }
+
+        public void Execute(object? parameter)
+        {
+            _Excute(parameter);
         }
     }
 }

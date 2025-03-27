@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Library.Views.Controls.Admin;
+using Library.Views.Controls.Shared;
+using Library.Views.Windows.Employee;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +25,9 @@ namespace Library.Views.Windows.Admin
         public AdminWindow()
         {
             InitializeComponent();
+            ListBox1.SelectedItem = EmployeesMenu;
+            EmployeesMenu.IsSelected = true;
+            MainContentControl.Content = new EmployeesUserControl();
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -45,6 +51,46 @@ namespace Library.Views.Windows.Admin
 
                 ListBox1.SelectionChanged += ListBox_SelectionChanged;
                 ListBox2.SelectionChanged += ListBox_SelectionChanged;
+
+                var selectedItem = selectedListBox.SelectedItem as ListBoxItem;
+                if (selectedItem != null)
+                {
+                    var stackPanel = selectedItem.Content as StackPanel;
+                    var textBlock = stackPanel?.Children
+                        .OfType<TextBlock>()
+                        .FirstOrDefault();
+
+                    if (textBlock != null)
+                    {
+                        string selectedText = textBlock.Text;
+
+                        switch (selectedText)
+                        {
+                            case "Employees":
+                                MainContentControl.Content = new EmployeesUserControl();
+                                break;
+                            case "Books":
+                                MainContentControl.Content = new BooksUserControl();
+                                break;
+                            case "Settings":
+                                MainContentControl.Content = new SettingsUserControl();
+                                break;
+                            case "Log out":
+                                var loginWindow = new Login();
+                                loginWindow.Show();
+
+                                var adminWindow = Application.Current.Windows.OfType<AdminWindow>().FirstOrDefault();
+                                if (adminWindow != null)
+                                {
+                                    adminWindow.Close();
+                                }
+                                break;
+                            default:
+                                MainContentControl.Content = null;
+                                break;
+                        }
+                    }
+                }
             }
         }
     }

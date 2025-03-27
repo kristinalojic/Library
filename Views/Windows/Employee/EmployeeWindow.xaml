@@ -33,7 +33,7 @@
                 <ListBox SelectionMode="Single"
                          SelectionChanged="ListBox_SelectionChanged"
                          Name="ListBox1">
-                    <ListBoxItem>
+                    <ListBoxItem x:Name="UsersMenuItem">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Account"
                                                      Style="{StaticResource MenuIcon}" />
@@ -75,15 +75,11 @@
                 </ListBox>
             </StackPanel>
         </Grid>
-        <!-- Glavni sadržaj -->
         <Grid Grid.Column="1"
               Background="{DynamicResource MaterialDesignPaper}">
-            <TextBlock Text="Dobrodošli!"
-                       FontSize="28"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Foreground="{DynamicResource MaterialDesignBody}" />
+            <ContentControl x:Name="MainContentControl"
+                            Margin="20"
+                            Content="{Binding CurrentPage}" />
         </Grid>
     </Grid>
 </Window>
