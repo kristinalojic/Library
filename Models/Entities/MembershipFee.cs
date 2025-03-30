@@ -5,8 +5,6 @@ namespace Library.Models.Entities;
 
 public partial class MembershipFee
 {
-    public int Id { get; set; }
-
     public DateOnly Issuence { get; set; }
 
     public DateOnly Expiration { get; set; }

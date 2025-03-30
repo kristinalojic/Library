@@ -15,9 +15,9 @@ public partial class Employee
 
     public string Password { get; set; } = null!;
 
-    public sbyte ActiveAccount { get; set; }
+    public bool IsAcive { get; set; }
 
-    public sbyte? AccountType { get; set; }
+    public sbyte AccountType { get; set; }
 
     public string Jbmg { get; set; } = null!;
 

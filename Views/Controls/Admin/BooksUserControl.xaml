@@ -68,11 +68,60 @@
                             </Button.Content>
                         </Button>
                     </Grid>
-                    <DataGrid Grid.Row="1"
-                              ItemsSource="{Binding ActiveEmployees}"
-                              AutoGenerateColumns="False"
-                              Margin="10,10,10,10"
-                              Grid.ColumnSpan="3" />
+                    <Grid Grid.Row="1"
+                          Margin="0,20,0,0">
+                        <ContentControl>
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <DataGrid ItemsSource="{Binding AvailableBooks}"
+                                                      AutoGenerateColumns="False"
+                                                      CanUserAddRows="False"
+                                                      VerticalScrollBarVisibility="Auto"
+                                                      HorizontalScrollBarVisibility="Auto"
+                                                      FontSize="14">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Title"
+                                                                        Binding="{Binding Title}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Author"
+                                                                        Binding="{Binding Author}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Year of publication"
+                                                                        Binding="{Binding YearOfPublication}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Copies"
+                                                                        Binding="{Binding Copies}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Available"
+                                                                        Binding="{Binding AvailableCopies}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Genre"
+                                                                        Binding="{Binding Genre.Name}"
+                                                                        IsReadOnly="True" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding AvailableBooksCount}"
+                                                     Value="0">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <TextBlock Text="No data"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"
+                                                               FontSize="26"
+                                                               Foreground="{DynamicResource MaterialDesignBody}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Archived books">
@@ -106,10 +155,60 @@
                             </Button.Content>
                         </Button>
                     </Grid>
-                    <DataGrid Grid.Row="1"
-                              ItemsSource="{Binding ActiveEmployees}"
-                              AutoGenerateColumns="False"
-                              Margin="10" />
+                    <Grid Grid.Row="1"
+                          Margin="0,20,0,0">
+                        <ContentControl>
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <DataGrid ItemsSource="{Binding ArchivedBooks}"
+                                                      AutoGenerateColumns="False"
+                                                      CanUserAddRows="False"
+                                                      VerticalScrollBarVisibility="Auto"
+                                                      HorizontalScrollBarVisibility="Auto"
+                                                      FontSize="14">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Title"
+                                                                        Binding="{Binding Title}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Author"
+                                                                        Binding="{Binding Author}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Year of publication"
+                                                                        Binding="{Binding YearOfPublication}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Copies"
+                                                                        Binding="{Binding Copies}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Available"
+                                                                        Binding="{Binding AvailableCopies}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Genre"
+                                                                        Binding="{Binding Genre.Name}"
+                                                                        IsReadOnly="True" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ArchivedBooksCount}"
+                                                     Value="0">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <TextBlock Text="No data"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"
+                                                               FontSize="26"
+                                                               Foreground="{DynamicResource MaterialDesignBody}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Grid>
                 </Grid>
             </TabItem>
         </TabControl>

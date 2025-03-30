@@ -13,6 +13,8 @@ public partial class Loan
 
     public DateOnly DueDate { get; set; }
 
+    public bool HasBeenExtended { get; set; }
+
     public virtual Book BookNavigation { get; set; } = null!;
 
     public virtual Member MemberNavigation { get; set; } = null!;

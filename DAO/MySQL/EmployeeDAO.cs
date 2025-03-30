@@ -21,6 +21,14 @@ namespace Library.DAO.MySQL
             }
         }
 
+        public async Task<List<Employee>> GetAllEmployeesAsync()
+        {
+            using (var _db = new LibraryDbContext())
+            {
+                return await _db.Employees.ToListAsync();
+            }
+        }
+
         public async Task PreloadDatabase()
         {
             using (var _db = new LibraryDbContext())

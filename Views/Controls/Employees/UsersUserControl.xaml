@@ -51,9 +51,62 @@
                 </Button.Content>
             </Button>
         </Grid>
-        <DataGrid Grid.Row="1"
-                  ItemsSource="{Binding ActiveEmployees}"
-                  AutoGenerateColumns="False"
-                  Margin="10" />
+        <Grid Grid.Row="1"
+              Margin="0,20,0,0">
+            <ContentControl>
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Setter Property="Content">
+                            <Setter.Value>
+                                <DataGrid ItemsSource="{Binding Members}"
+                                          AutoGenerateColumns="False"
+                                          CanUserAddRows="False"
+                                          VerticalScrollBarVisibility="Auto"
+                                          HorizontalScrollBarVisibility="Auto"
+                                          FontSize="14">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Card number"
+                                                            Binding="{Binding MembershipCardNumber}"
+                                                            IsReadOnly="True" />
+                                        <DataGridTextColumn Header="Name"
+                                                            Binding="{Binding Name}"
+                                                            IsReadOnly="True" />
+                                        <DataGridTextColumn Header="Surname"
+                                                            Binding="{Binding Surname}"
+                                                            IsReadOnly="True" />
+                                        <DataGridTextColumn Header="Email"
+                                                            Binding="{Binding Email}"
+                                                            IsReadOnly="True" />
+                                        <DataGridTextColumn Header="Phone"
+                                                            Binding="{Binding Phone}"
+                                                            IsReadOnly="True" />
+                                        <DataGridTextColumn Header="Address"
+                                                            Binding="{Binding Address}"
+                                                            IsReadOnly="True" />
+                                        <DataGridTextColumn Header="Membership expiration"
+                                                            Binding="{Binding MembershipFee.Expiration, StringFormat='dd.MM.yyyy'}"
+                                                            IsReadOnly="True" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding AvailableBooksCount}"
+                                         Value="0">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <TextBlock Text="No data"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="26"
+                                                   Foreground="{DynamicResource MaterialDesignBody}" />
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
+        </Grid>
     </Grid>
 </UserControl>

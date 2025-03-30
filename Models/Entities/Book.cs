@@ -15,7 +15,9 @@ public partial class Book
 
     public sbyte Copies { get; set; }
 
-    public sbyte Available { get; set; }
+    public sbyte AvailableCopies { get; set; }
+
+    public bool IsAvailable { get; set; }
 
     public int GenreId { get; set; }
 

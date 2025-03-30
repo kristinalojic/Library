@@ -64,7 +64,7 @@ namespace Library.ViewModels
             { 
                 var employee = await _employeeDAO.FindByUsernameAndPasswordAsync(Username, Password);
 
-                if (employee == null || employee.ActiveAccount == 0)
+                if (employee == null || !employee.IsAcive)
                 {
                     Message = "Neuspješna prijava. Pokušajte ponovo.";
                 }

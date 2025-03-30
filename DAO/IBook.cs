@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Library.DAO
 {
-    interface IEmployee
+    interface IBook
     {
-        Task<Employee?> FindByUsernameAndPasswordAsync(string username, string password);
-        Task<List<Employee>> GetAllEmployeesAsync();
+        Task<List<Book>> GetAllBooksAsync();
     }
 }

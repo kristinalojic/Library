@@ -61,7 +61,12 @@ public partial class LibraryDbContext : DbContext
             entity.HasIndex(e => e.GenreId, "fk_book_genre1_idx");
 
             entity.Property(e => e.Author).HasMaxLength(45);
+            entity.Property(e => e.AvailableCopies).HasColumnName("Available_copies");
             entity.Property(e => e.GenreId).HasColumnName("genre_Id");
+            entity.Property(e => e.IsAvailable)
+                .IsRequired()
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("Is_available");
             entity.Property(e => e.Title).HasMaxLength(45);
             entity.Property(e => e.YearOfPublication).HasColumnName("Year_of_publication");
 
@@ -88,9 +93,12 @@ public partial class LibraryDbContext : DbContext
             entity.Property(e => e.AccountType)
                 .HasDefaultValueSql("'2'")
                 .HasColumnName("Account_type");
-            entity.Property(e => e.ActiveAccount).HasColumnName("Active_account");
             entity.Property(e => e.Address).HasMaxLength(45);
             entity.Property(e => e.Email).HasMaxLength(45);
+            entity.Property(e => e.IsAcive)
+                .IsRequired()
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("Is_acive");
             entity.Property(e => e.Jbmg)
                 .HasMaxLength(45)
                 .HasColumnName("JBMG");
@@ -126,6 +134,7 @@ public partial class LibraryDbContext : DbContext
             entity.Property(e => e.Member).HasColumnName("member");
             entity.Property(e => e.IssueDate).HasColumnName("Issue_date");
             entity.Property(e => e.DueDate).HasColumnName("Due_date");
+            entity.Property(e => e.HasBeenExtended).HasColumnName("Has_been_extended");
 
             entity.HasOne(d => d.BookNavigation).WithMany(p => p.Loans)
                 .HasForeignKey(d => d.Book)
@@ -158,18 +167,16 @@ public partial class LibraryDbContext : DbContext
 
         modelBuilder.Entity<MembershipFee>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
+            entity.HasKey(e => e.Member).HasName("PRIMARY");
 
             entity.ToTable("membership_fees");
 
-            entity.HasIndex(e => e.Id, "ID_UNIQUE").IsUnique();
+            entity.Property(e => e.Member)
+                .ValueGeneratedNever()
+                .HasColumnName("member");
 
-            entity.HasIndex(e => e.Member, "fk_membership_fees_member1_idx");
-
-            entity.Property(e => e.Member).HasColumnName("member");
-
-            entity.HasOne(d => d.MemberNavigation).WithMany(p => p.MembershipFees)
-                .HasForeignKey(d => d.Member)
+            entity.HasOne(d => d.MemberNavigation).WithOne(p => p.MembershipFee)
+                .HasForeignKey<MembershipFee>(d => d.Member)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_membership_fees_member1");
         });

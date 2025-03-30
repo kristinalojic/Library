@@ -66,10 +66,63 @@
                             </Button.Content>
                         </Button>
                     </Grid>
-                    <DataGrid Grid.Row="1"
-                              ItemsSource="{Binding ActiveEmployees}"
-                              AutoGenerateColumns="False"
-                              Margin="10" />
+                    <Grid Grid.Row="1"
+                          Margin="0,20,0,0">
+                        <ContentControl>
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <DataGrid ItemsSource="{Binding ActiveEmployees}"
+                                                      AutoGenerateColumns="False"
+                                                      CanUserAddRows="False"
+                                                      VerticalScrollBarVisibility="Auto"
+                                                      HorizontalScrollBarVisibility="Auto"
+                                                      FontSize="14">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Name"
+                                                                        Binding="{Binding Name}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Surname"
+                                                                        Binding="{Binding Surname}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Username"
+                                                                        Binding="{Binding Username}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="JMBG"
+                                                                        Binding="{Binding Jbmg}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Phone"
+                                                                        Binding="{Binding Phone}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Email"
+                                                                        Binding="{Binding Email}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Address"
+                                                                        Binding="{Binding Address}"
+                                                                        IsReadOnly="True" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ActiveEmployeesCount}"
+                                                     Value="0">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <TextBlock Text="No data"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"
+                                                               FontSize="26"
+                                                               Foreground="{DynamicResource MaterialDesignBody}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Inactive employees">
@@ -103,10 +156,63 @@
                             </Button.Content>
                         </Button>
                     </Grid>
-                    <DataGrid Grid.Row="1"
-                              ItemsSource="{Binding ActiveEmployees}"
-                              AutoGenerateColumns="False"
-                              Margin="10" />
+                    <Grid Grid.Row="1"
+                          Margin="0,20,0,0">
+                        <ContentControl>
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <DataGrid ItemsSource="{Binding InactiveEmployees}"
+                                                      AutoGenerateColumns="False"
+                                                      CanUserAddRows="False"
+                                                      VerticalScrollBarVisibility="Auto"
+                                                      HorizontalScrollBarVisibility="Auto"
+                                                      FontSize="14">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Name"
+                                                                        Binding="{Binding Name}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Surame"
+                                                                        Binding="{Binding Surname}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Username"
+                                                                        Binding="{Binding Username}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="JMBG"
+                                                                        Binding="{Binding Jbmg}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Phone"
+                                                                        Binding="{Binding Phone}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Email"
+                                                                        Binding="{Binding Email}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Address"
+                                                                        Binding="{Binding Address}"
+                                                                        IsReadOnly="True" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ActiveEmployeesCount}"
+                                                     Value="0">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <TextBlock Text="No data"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"
+                                                               FontSize="26"
+                                                               Foreground="{DynamicResource MaterialDesignBody}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Grid>
                 </Grid>
             </TabItem>
         </TabControl>

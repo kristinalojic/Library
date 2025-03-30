@@ -60,12 +60,12 @@
     <Style x:Key="SearchTextBox"
            TargetType="TextBox"
            BasedOn="{StaticResource MaterialDesignTextBox}">
-        <Setter Property="Width"
-                Value="300" />
         <Setter Property="Foreground"
                 Value="{DynamicResource MaterialDesignBody}" />
         <Setter Property="FontSize"
                 Value="14" />
+        <Setter Property="Width"
+                Value="300" />
         <Setter Property="VerticalAlignment"
                 Value="Center" />
         <Style.Triggers>

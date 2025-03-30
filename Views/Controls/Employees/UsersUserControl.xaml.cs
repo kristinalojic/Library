@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.ViewModels.Employee;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace Library.Views.Controls.Employees
         public UsersUserControl()
         {
             InitializeComponent();
+            DataContext = new MembersViewModel();
         }
     }
 }

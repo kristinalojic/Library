@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.ViewModels.Admin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace Library.Views.Controls.Employees
         public BooksUserControl()
         {
             InitializeComponent();
+            DataContext = new AdminBooksViewModel();
         }
     }
 }
