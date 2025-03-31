@@ -183,19 +183,28 @@ public partial class LibraryDbContext : DbContext
 
         modelBuilder.Entity<Setting>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
+            entity.HasKey(e => e.Employee).HasName("PRIMARY");
 
             entity.ToTable("settings");
 
-            entity.HasIndex(e => e.EmployeeId, "fk_settings_employee1_idx");
+            entity.HasIndex(e => e.Employee, "employee_UNIQUE").IsUnique();
 
-            entity.Property(e => e.Color).HasMaxLength(45);
-            entity.Property(e => e.EmployeeId).HasColumnName("employee_Id");
-            entity.Property(e => e.Language).HasMaxLength(45);
-            entity.Property(e => e.Theme).HasMaxLength(45);
+            entity.Property(e => e.Employee)
+                .ValueGeneratedNever()
+                .HasColumnName("employee");
+            entity.Property(e => e.Color)
+                .HasMaxLength(45)
+                .HasDefaultValueSql("'Purple'");
+            entity.Property(e => e.Language)
+                .HasMaxLength(45)
+                .HasDefaultValueSql("'Serbian'");
+            entity.Property(e => e.Theme)
+                .HasMaxLength(45)
+                .HasDefaultValueSql("'Light'");
 
-            entity.HasOne(d => d.Employee).WithMany(p => p.Settings)
-                .HasForeignKey(d => d.EmployeeId)
+            entity.HasOne(d => d.EmployeeNavigation).WithOne(p => p.Setting)
+                .HasForeignKey<Setting>(d => d.Employee)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_settings_employee1");
         });
 

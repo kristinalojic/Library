@@ -7,6 +7,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Library.Views.Windows.Admin;
+using Employee_And_Company_Management.Commands;
 
 namespace Library.ViewModels.Admin
 {
@@ -46,10 +49,13 @@ namespace Library.ViewModels.Admin
 
         public int ArchivedBooksCount => ArchivedBooks?.Count ?? 0;
 
+        public ICommand AddBookCommand { get; set; }
+
         public AdminBooksViewModel()
         {
             _booksDAO = new BookDAO();
             LoadBooks();
+            AddBookCommand = new RelayCommand(AddBook, CanAddBook);
         }
 
         private async void LoadBooks()
@@ -58,5 +64,13 @@ namespace Library.ViewModels.Admin
             AvailableBooks = new ObservableCollection<Book>(books.Where(b => b.IsAvailable));
             ArchivedBooks = new ObservableCollection<Book>(books.Where(b => !b.IsAvailable));
         }
+
+        private void AddBook(object? obj)
+        {
+            AddBookWindow window = new AddBookWindow();
+            window.Show();
+        }
+
+        private bool CanAddBook(object? obj) => true;
     }
 }

@@ -32,7 +32,7 @@
                                   materialDesign:HintAssist.Hint="Pretrazi"
                                   Style="{StaticResource SearchTextBox}" />
                         <Button Grid.Column="3"
-                                Command="{Binding AddEmployeeCommand}"
+                                Command="{Binding AddBookCommand}"
                                 Style="{StaticResource UserControlButton}">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal"
@@ -78,26 +78,33 @@
                                             <DataGrid ItemsSource="{Binding AvailableBooks}"
                                                       AutoGenerateColumns="False"
                                                       CanUserAddRows="False"
+                                                      CanUserDeleteRows="False"
                                                       VerticalScrollBarVisibility="Auto"
                                                       HorizontalScrollBarVisibility="Auto"
                                                       FontSize="14">
                                                 <DataGrid.Columns>
                                                     <DataGridTextColumn Header="Title"
+                                                                        Width="2*"
                                                                         Binding="{Binding Title}"
                                                                         IsReadOnly="True" />
                                                     <DataGridTextColumn Header="Author"
+                                                                        Width="2*"
                                                                         Binding="{Binding Author}"
                                                                         IsReadOnly="True" />
                                                     <DataGridTextColumn Header="Year of publication"
+                                                                        Width="1.5*"
                                                                         Binding="{Binding YearOfPublication}"
                                                                         IsReadOnly="True" />
                                                     <DataGridTextColumn Header="Copies"
+                                                                        Width="*"
                                                                         Binding="{Binding Copies}"
                                                                         IsReadOnly="True" />
                                                     <DataGridTextColumn Header="Available"
+                                                                        Width="*"
                                                                         Binding="{Binding AvailableCopies}"
                                                                         IsReadOnly="True" />
                                                     <DataGridTextColumn Header="Genre"
+                                                                        Width="1.5*"
                                                                         Binding="{Binding Genre.Name}"
                                                                         IsReadOnly="True" />
                                                 </DataGrid.Columns>
@@ -170,21 +177,27 @@
                                                       FontSize="14">
                                                 <DataGrid.Columns>
                                                     <DataGridTextColumn Header="Title"
+                                                                        Width="2*"
                                                                         Binding="{Binding Title}"
                                                                         IsReadOnly="True" />
                                                     <DataGridTextColumn Header="Author"
+                                                                        Width="2*"
                                                                         Binding="{Binding Author}"
                                                                         IsReadOnly="True" />
                                                     <DataGridTextColumn Header="Year of publication"
+                                                                        Width="1.5*"
                                                                         Binding="{Binding YearOfPublication}"
                                                                         IsReadOnly="True" />
                                                     <DataGridTextColumn Header="Copies"
+                                                                        Width="*"
                                                                         Binding="{Binding Copies}"
                                                                         IsReadOnly="True" />
                                                     <DataGridTextColumn Header="Available"
+                                                                        Width="*"
                                                                         Binding="{Binding AvailableCopies}"
                                                                         IsReadOnly="True" />
                                                     <DataGridTextColumn Header="Genre"
+                                                                        Width="1.5*"
                                                                         Binding="{Binding Genre.Name}"
                                                                         IsReadOnly="True" />
                                                 </DataGrid.Columns>

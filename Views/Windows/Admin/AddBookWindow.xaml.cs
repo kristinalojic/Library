@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace Library.Views.Windows.Admin
         public AddBookWindow()
         {
             InitializeComponent();
+            DataContext = new BookViewModel(this);
         }
     }
 }

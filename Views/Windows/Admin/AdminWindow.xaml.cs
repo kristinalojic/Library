@@ -1,4 +1,5 @@
-﻿using Library.Views.Controls.Admin;
+﻿using Library.ViewModels;
+using Library.Views.Controls.Admin;
 using Library.Views.Controls.Shared;
 using Library.Views.Windows.Employee;
 using System;
@@ -22,12 +23,15 @@ namespace Library.Views.Windows.Admin
     /// </summary>
     public partial class AdminWindow : Window
     {
-        public AdminWindow()
+        private int _loggedEmployee;
+        public AdminWindow(int id)
         {
             InitializeComponent();
+            _loggedEmployee = id;
             ListBox1.SelectedItem = EmployeesMenu;
             EmployeesMenu.IsSelected = true;
             MainContentControl.Content = new EmployeesUserControl();
+            var theme = new ThemeViewModel(id);
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -73,7 +77,7 @@ namespace Library.Views.Windows.Admin
                                 MainContentControl.Content = new BooksUserControl();
                                 break;
                             case "Settings":
-                                MainContentControl.Content = new SettingsUserControl();
+                                MainContentControl.Content = new SettingsUserControl(_loggedEmployee);
                                 break;
                             case "Log out":
                                 var loginWindow = new Login();

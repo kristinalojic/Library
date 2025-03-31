@@ -27,5 +27,5 @@ public partial class Employee
 
     public string Address { get; set; } = null!;
 
-    public virtual ICollection<Setting> Settings { get; set; } = new List<Setting>();
+    public virtual Setting? Setting { get; set; }
 }

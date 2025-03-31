@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Library"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             StartupUri="Views/Windows/Employee/EmployeeWindow.xaml"> 
+             StartupUri="Views/Windows/Login.xaml"
+             xmlns:helpers="clr-namespace:Library.Helpers">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -13,6 +14,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
                 <ResourceDictionary Source="/Resources/Dictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <helpers:EqualityConverter x:Key="EqualityConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -74,13 +74,13 @@ namespace Library.ViewModels
                     {
                         if (employee.AccountType == 1)
                         {
-                            AdminWindow administratorWindow = new AdminWindow();
+                            AdminWindow administratorWindow = new AdminWindow(employee.Id);
                             administratorWindow.Show();
                             _currentWindow.Close();
                         }
                         else
                         {
-                            EmployeeWindow employeeWindow = new EmployeeWindow();
+                            EmployeeWindow employeeWindow = new EmployeeWindow(employee.Id);
                             employeeWindow.Show();
                             _currentWindow.Close();
                         }

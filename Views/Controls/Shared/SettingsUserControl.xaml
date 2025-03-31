@@ -18,29 +18,46 @@
                                Margin="0,10,0,10"
                                Foreground="{DynamicResource MaterialDesignBody}" />
                     <StackPanel Orientation="Horizontal">
-                        <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                                      ToolTip="Default ToggleButton Style" />
-                        <TextBlock Text="Light"
-                                   Margin="10,0,0,0"
-                                   Foreground="{DynamicResource MaterialDesignBody}" />
+                        <RadioButton Content="Light"
+                                     GroupName="Group1"
+                                     Margin="5"
+                                     IsChecked="{Binding SelectedTheme, Converter={StaticResource EqualityConverter}, ConverterParameter=Light}"
+                                     Command="{Binding ChangeThemeCommand}"
+                                     CommandParameter="Light"
+                                     Foreground="{DynamicResource MaterialDesignBody}" />
+                        <RadioButton Content="Dark"
+                                     GroupName="Group1"
+                                     Margin="5"
+                                     IsChecked="{Binding SelectedTheme, Converter={StaticResource EqualityConverter}, ConverterParameter=Dark}"
+                                     Command="{Binding ChangeThemeCommand}"
+                                     CommandParameter="Dark"
+                                     Foreground="{DynamicResource MaterialDesignBody}" />
                     </StackPanel>
                     <TextBlock Text="Color"
                                FontSize="18"
                                Margin="0,10,0,5"
                                Foreground="{DynamicResource MaterialDesignBody}" />
                     <StackPanel Orientation="Horizontal">
-                        <RadioButton Content="Opcija 1"
-                                     GroupName="Grupa1"
+                        <RadioButton Content="Purple"
+                                     GroupName="Group2"
                                      Margin="5"
-                                     IsChecked="True"
+                                     IsChecked="{Binding SelectedColor, Converter={StaticResource EqualityConverter}, ConverterParameter=Purple}"
+                                     Command="{Binding ChangeColorCommand}"
+                                     CommandParameter="Purple"
                                      Foreground="{DynamicResource MaterialDesignBody}" />
-                        <RadioButton Content="Opcija 2"
-                                     GroupName="Grupa1"
+                        <RadioButton Content="Green"
+                                     GroupName="Group2"
                                      Margin="5"
+                                     IsChecked="{Binding SelectedColor, Converter={StaticResource EqualityConverter}, ConverterParameter=Green}"
+                                     Command="{Binding ChangeColorCommand}"
+                                     CommandParameter="Green"
                                      Foreground="{DynamicResource MaterialDesignBody}" />
-                        <RadioButton Content="Opcija 3"
-                                     GroupName="Grupa1"
+                        <RadioButton Content="Yellow"
+                                     GroupName="Group2"
                                      Margin="5"
+                                     IsChecked="{Binding SelectedColor, Converter={StaticResource EqualityConverter}, ConverterParameter=Yellow}"
+                                     Command="{Binding ChangeColorCommand}"
+                                     CommandParameter="Yellow"
                                      Foreground="{DynamicResource MaterialDesignBody}" />
                     </StackPanel>
                     <TextBlock Text="Language"
@@ -49,12 +66,12 @@
                                Margin="0,40,0,10"
                                Foreground="{DynamicResource MaterialDesignBody}" />
                     <StackPanel Orientation="Horizontal">
-                        <RadioButton Content="Opcija 1"
+                        <RadioButton Content="English"
                                      GroupName="Grupa2"
                                      Margin="5"
                                      IsChecked="True"
                                      Foreground="{DynamicResource MaterialDesignBody}" />
-                        <RadioButton Content="Opcija 2"
+                        <RadioButton Content="Serbian"
                                      GroupName="Grupa2"
                                      Margin="5"
                                      Foreground="{DynamicResource MaterialDesignBody}" />

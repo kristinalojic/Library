@@ -1,4 +1,5 @@
-﻿using Library.Views.Controls.Admin;
+﻿using Library.ViewModels;
+using Library.Views.Controls.Admin;
 using Library.Views.Controls.Employees;
 using Library.Views.Controls.Shared;
 using Library.Views.Windows.Admin;
@@ -23,9 +24,12 @@ namespace Library.Views.Windows.Employee
     /// </summary>
     public partial class EmployeeWindow : Window
     {
-        public EmployeeWindow()
+        private int _loggedEmployee;
+        public EmployeeWindow(int id)
         {
             InitializeComponent();
+            var theme = new ThemeViewModel(id);
+            _loggedEmployee = id;
             ListBox1.SelectedItem = UsersMenuItem;
             UsersMenuItem.IsSelected = true;
             MainContentControl.Content = new UsersUserControl();
@@ -74,7 +78,7 @@ namespace Library.Views.Windows.Employee
                                 MainContentControl.Content = new Controls.Employees.BooksUserControl();
                                 break;
                             case "Settings":
-                                MainContentControl.Content = new SettingsUserControl();
+                                MainContentControl.Content = new SettingsUserControl(_loggedEmployee);
                                 break;
                             case "Log out":
                                 var loginWindow = new Login();

@@ -61,6 +61,7 @@
                                 <DataGrid ItemsSource="{Binding Members}"
                                           AutoGenerateColumns="False"
                                           CanUserAddRows="False"
+                                          CanUserDeleteRows="False"
                                           VerticalScrollBarVisibility="Auto"
                                           HorizontalScrollBarVisibility="Auto"
                                           FontSize="14">

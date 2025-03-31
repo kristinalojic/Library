@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:Library.Views.Windows.Admin"
         mc:Ignorable="d"
         Title="Admin"
+        WindowState="Maximized"
         Height="700"
         Width="1400"
         WindowStartupLocation="CenterScreen">

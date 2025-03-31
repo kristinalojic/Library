@@ -6,7 +6,8 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Library.Views.Windows.Employee"
         mc:Ignorable="d"
-        Title="Admin"
+        Title="Employee"
+        WindowState="Maximized"
         Height="700"
         Width="1400"
         WindowStartupLocation="CenterScreen">
