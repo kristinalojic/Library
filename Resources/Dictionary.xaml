@@ -45,7 +45,7 @@
     <Style x:Key="SearchIcon"
            TargetType="materialDesign:PackIcon">
         <Setter Property="Foreground"
-                Value="{DynamicResource MaterialDesign.Brush.Secondary.Light}" />
+                Value="{DynamicResource MaterialDesign.Brush.Secondary}" />
         <Setter Property="Width"
                 Value="20" />
         <Setter Property="Height"
@@ -72,17 +72,17 @@
             <Trigger Property="IsKeyboardFocused"
                      Value="True">
                 <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush"
-                        Value="{DynamicResource MaterialDesign.Brush.Secondary.Light}" />
+                        Value="{DynamicResource MaterialDesign.Brush.Secondary}" />
             </Trigger>
             <Trigger Property="IsFocused"
                      Value="True">
                 <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush"
-                        Value="{DynamicResource MaterialDesign.Brush.Secondary.Light}" />
+                        Value="{DynamicResource MaterialDesign.Brush.Secondary}" />
             </Trigger>
             <Trigger Property="IsMouseOver"
                      Value="True">
                 <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush"
-                        Value="{DynamicResource MaterialDesign.Brush.Secondary.Light}" />
+                        Value="{DynamicResource MaterialDesign.Brush.Secondary}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -98,9 +98,9 @@
         <Setter Property="Height"
                 Value="40" />
         <Setter Property="Background"
-                Value="{DynamicResource MaterialDesign.Brush.Secondary.Light}" />
+                Value="{DynamicResource MaterialDesign.Brush.Secondary}" />
         <Setter Property="BorderBrush"
-                Value="{DynamicResource MaterialDesign.Brush.Secondary.Light}" />
+                Value="{DynamicResource MaterialDesign.Brush.Secondary}" />
     </Style>
     
     <Style x:Key="UserControlButtonIcon"

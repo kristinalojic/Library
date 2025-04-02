@@ -9,7 +9,7 @@
              d:DesignHeight="450"
              d:DesignWidth="800">
     <Grid Background="{DynamicResource MaterialDesignPaper}">
-        <TabControl materialDesign:ColorZoneAssist.Mode="SecondaryLight">
+        <TabControl materialDesign:ColorZoneAssist.Mode="PrimaryLight">
             <TabItem Header="Available books">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -21,19 +21,25 @@
                           Grid.ColumnSpan="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="216.979" />
+                            <ColumnDefinition Width="83.021" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <materialDesign:PackIcon Style="{StaticResource SearchIcon}" />
+                        <materialDesign:PackIcon Style="{StaticResource SearchIcon}"
+                                                 Margin="25,22,0,0"
+                                                 VerticalAlignment="Top" />
                         <TextBox  Grid.Column="1"
                                   materialDesign:HintAssist.Hint="Pretrazi"
-                                  Style="{StaticResource SearchTextBox}" />
-                        <Button Grid.Column="3"
+                                  Style="{StaticResource SearchTextBox}"
+                                  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                                  Grid.ColumnSpan="2" />
+                        <Button Grid.Column="4"
                                 Command="{Binding AddBookCommand}"
-                                Style="{StaticResource UserControlButton}">
+                                Style="{StaticResource UserControlButton}"
+                                Margin="0,10,10,10">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal"
                                             VerticalAlignment="Center">
@@ -43,9 +49,10 @@
                                 </StackPanel>
                             </Button.Content>
                         </Button>
-                        <Button Grid.Column="4"
-                                Command="{Binding AddEmployeeCommand}"
-                                Style="{StaticResource UserControlButton}">
+                        <Button Grid.Column="5"
+                                Command="{Binding DeleteCommand}"
+                                Style="{StaticResource UserControlButton}"
+                                Margin="0,10,10,10">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal"
                                             VerticalAlignment="Center">
@@ -55,9 +62,10 @@
                                 </StackPanel>
                             </Button.Content>
                         </Button>
-                        <Button Grid.Column="5"
-                                Command="{Binding AddEmployeeCommand}"
-                                Style="{StaticResource UserControlButton}">
+                        <Button Grid.Column="6"
+                                Command="{Binding UpdateBookCommand}"
+                                Style="{StaticResource UserControlButton}"
+                                Margin="0,10,10,10">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal"
                                             VerticalAlignment="Center">
@@ -75,7 +83,8 @@
                                 <Style TargetType="ContentControl">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <DataGrid ItemsSource="{Binding AvailableBooks}"
+                                            <DataGrid ItemsSource="{Binding FilteredAvailableBooks}"
+                                                      SelectedItem="{Binding SelectedBook, Mode=TwoWay}"
                                                       AutoGenerateColumns="False"
                                                       CanUserAddRows="False"
                                                       CanUserDeleteRows="False"
@@ -142,16 +151,21 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="284*" />
+                            <ColumnDefinition Width="75*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <materialDesign:PackIcon Style="{StaticResource SearchIcon}" />
+                        <materialDesign:PackIcon Style="{StaticResource SearchIcon}"
+                                                 Margin="25,22,0,0"
+                                                 VerticalAlignment="Top" />
                         <TextBox  Grid.Column="1"
                                   materialDesign:HintAssist.Hint="Pretrazi"
-                                  Style="{StaticResource SearchTextBox}" />
-                        <Button Grid.Column="3"
-                                Command="{Binding AddEmployeeCommand}"
-                                Style="{StaticResource UserControlButton}">
+                                  Style="{StaticResource SearchTextBox}"
+                                  Text="{Binding SearchText2, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Grid.Column="4"
+                                Command="{Binding ActivateCommand}"
+                                Style="{StaticResource UserControlButton}"
+                                Margin="0,10,10,10">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal"
                                             VerticalAlignment="Center">
@@ -169,7 +183,8 @@
                                 <Style TargetType="ContentControl">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <DataGrid ItemsSource="{Binding ArchivedBooks}"
+                                            <DataGrid ItemsSource="{Binding FilteredArchivedBooks}"
+                                                      SelectedItem="{Binding SelectedBook, Mode=TwoWay}"
                                                       AutoGenerateColumns="False"
                                                       CanUserAddRows="False"
                                                       VerticalScrollBarVisibility="Auto"

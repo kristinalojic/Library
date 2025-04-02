@@ -10,10 +10,13 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Library.Views.Windows.Admin;
 using Employee_And_Company_Management.Commands;
+using Library.Models;
+using System.Windows;
+using Library.Views.Windows;
 
 namespace Library.ViewModels.Admin
 {
-    class AdminBooksViewModel : BaseViewModel
+    public class AdminBooksViewModel : BaseViewModel
     {
         private readonly IBook _booksDAO;
 
@@ -45,32 +48,200 @@ namespace Library.ViewModels.Admin
             }
         }
 
-        public int AvailableBooksCount => AvailableBooks?.Count ?? 0;
+        private ObservableCollection<Book> _filteredAvailableBooks;
+        public ObservableCollection<Book> FilteredAvailableBooks
+        {
+            get => _filteredAvailableBooks;
+            set
+            {
+                if (SetProperty(ref _filteredAvailableBooks, value))
+                {
+                    _filteredAvailableBooks.CollectionChanged += (s, e) => OnPropertyChanged(nameof(AvailableBooksCount));
+                }
+            }
+        }
 
-        public int ArchivedBooksCount => ArchivedBooks?.Count ?? 0;
+        private ObservableCollection<Book> _filteredArchivedBooks;
+        public ObservableCollection<Book> FilteredArchivedBooks
+        {
+            get => _filteredArchivedBooks;
+            set
+            {
+                if (SetProperty(ref _filteredArchivedBooks, value))
+                {
+                    _filteredArchivedBooks.CollectionChanged += (s, e) => OnPropertyChanged(nameof(ArchivedBooksCount));
+                }
+            }
+        }
+
+        public int AvailableBooksCount => FilteredAvailableBooks?.Count ?? 0;
+
+        public int ArchivedBooksCount => FilteredArchivedBooks?.Count ?? 0;
+
+        private Book _selectedBook;
+        public Book SelectedBook
+        {
+            get => _selectedBook;
+            set => SetProperty(ref _selectedBook, value);
+        }
+
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText != value)
+                {
+                    SetProperty(ref _searchText, value);
+                    FilterBooks(); 
+                }
+            }
+        }
+
+        private string _searchText2;
+        public string SearchText2
+        {
+            get => _searchText2;
+            set
+            {
+                if (_searchText2 != value)
+                {
+                    SetProperty(ref _searchText2, value);
+                    FilterBooks();
+                }
+            }
+        }
 
         public ICommand AddBookCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
+        public ICommand ActivateCommand { get; set; }
+        public ICommand UpdateBookCommand { get; set; }
 
         public AdminBooksViewModel()
         {
             _booksDAO = new BookDAO();
             LoadBooks();
             AddBookCommand = new RelayCommand(AddBook, CanAddBook);
+            DeleteCommand = new RelayCommand(async obj => await DeleteSelectedBook(obj), CanDeleteSelectedBook);
+            ActivateCommand = new RelayCommand(async obj => await ActivateSelectedBook(obj), CanActivateSelectedBook);
+            UpdateBookCommand = new RelayCommand(UpdateSelectedBook, CanUpdateSelectedBook);
         }
 
-        private async void LoadBooks()
+        public async void LoadBooks()
         {
             var books = await _booksDAO.GetAllBooksAsync();
             AvailableBooks = new ObservableCollection<Book>(books.Where(b => b.IsAvailable));
             ArchivedBooks = new ObservableCollection<Book>(books.Where(b => !b.IsAvailable));
+            FilterBooks();
         }
-
         private void AddBook(object? obj)
         {
-            AddBookWindow window = new AddBookWindow();
+            AddBookWindow window = new AddBookWindow(this);
             window.Show();
         }
 
         private bool CanAddBook(object? obj) => true;
+
+        private void UpdateSelectedBook(object? obj)
+        {
+            var _pomBook = SelectedBook;
+            if (_pomBook != null)
+            {
+                UpdateBookWindow window = new UpdateBookWindow(this, _pomBook);
+                window.Show();
+            }
+            else
+            {
+                var messageBox = new CustomMessageBox("Selektujte knjigu.");
+                messageBox.ShowDialog();
+            }
+        }
+
+        private bool CanUpdateSelectedBook(object? obj) => true;
+
+        private bool CanDeleteSelectedBook(object parameter)
+        {
+            return true;
+        }
+
+        private async Task DeleteSelectedBook(object parameter)
+        {
+            var _pomBook = SelectedBook;
+            if (_pomBook != null)
+            {
+                DeleteConfirmationDialog dialog = new DeleteConfirmationDialog("Da li ste sigurni da želite arhivirati knjigu?");
+                bool answer = dialog.ShowDialog() ?? false;
+
+                if (answer)
+                {
+                    _pomBook.IsAvailable = false;
+                    AvailableBooks.Remove(_pomBook);
+                    ArchivedBooks.Add(_pomBook);
+
+                    await _booksDAO.UpdateBookAsync(_pomBook);
+                    FilterBooks();
+                }
+            }
+            else
+            {
+                var messageBox = new CustomMessageBox("Selektujte knjigu.");
+                messageBox.ShowDialog();
+            }
+        }
+
+        private bool CanActivateSelectedBook(object parameter)
+        {
+            return true;
+        }
+
+        private async Task ActivateSelectedBook(object parameter)
+        {
+            var _pomBook = SelectedBook;
+            if (_pomBook != null)
+            {
+                DeleteConfirmationDialog dialog = new DeleteConfirmationDialog("Da li ste sigurni da želite vratiti knjigu u ponudu?");
+                bool answer = dialog.ShowDialog() ?? false;
+
+                if (answer)
+                {
+                    _pomBook.IsAvailable = true;
+                    AvailableBooks.Add(_pomBook);
+                    ArchivedBooks.Remove(_pomBook);
+
+                    await _booksDAO.UpdateBookAsync(_pomBook);
+                    FilterBooks();
+                }
+            }
+            else
+            {
+                var messageBox = new CustomMessageBox("Selektujte knjigu.");
+                messageBox.ShowDialog();
+            }
+        }
+
+        private void FilterBooks()
+        {
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                FilteredAvailableBooks = new ObservableCollection<Book>(_availableBooks);
+            }
+            else
+            {
+                FilteredAvailableBooks = new ObservableCollection<Book>(_availableBooks
+                    .Where(b => b.Title.StartsWith(SearchText, StringComparison.OrdinalIgnoreCase) ||
+                                b.Author.StartsWith(SearchText, StringComparison.OrdinalIgnoreCase)));
+            }
+            if (string.IsNullOrWhiteSpace(SearchText2))
+            {
+                FilteredArchivedBooks = new ObservableCollection<Book>(_archivedBooks);
+            }
+            else
+            {
+                FilteredArchivedBooks = new ObservableCollection<Book>(_archivedBooks
+                    .Where(b => b.Title.StartsWith(SearchText2, StringComparison.OrdinalIgnoreCase) ||
+                                b.Author.StartsWith(SearchText2, StringComparison.OrdinalIgnoreCase)));
+            }
+        }
     }
 }

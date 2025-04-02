@@ -10,5 +10,6 @@ namespace Library.DAO
     interface IGenre
     {
         Task<List<Genre>> GetAllGenresAsync();
+        Task<int> GetIdByNameAsync(string name);
     }
 }

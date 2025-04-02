@@ -10,5 +10,7 @@ namespace Library.DAO
     interface IBook
     {
         Task<List<Book>> GetAllBooksAsync();
+        Task<bool> AddBookAsync(Book book);
+        Task<bool> UpdateBookAsync(Book book);
     }
 }

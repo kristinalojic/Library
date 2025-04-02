@@ -1,6 +1,5 @@
-﻿using Library.ViewModels;
+﻿using Library.Models.Entities;
 using Library.ViewModels.Admin;
-using Library.Views.Controls.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +17,14 @@ using System.Windows.Shapes;
 namespace Library.Views.Windows.Admin
 {
     /// <summary>
-    /// Interaction logic for AddBookWindow.xaml
+    /// Interaction logic for UpdateBookWindow.xaml
     /// </summary>
-    public partial class AddBookWindow : Window
+    public partial class UpdateBookWindow : Window
     {
-        public AddBookWindow(AdminBooksViewModel booksViewModel)
+        public UpdateBookWindow(AdminBooksViewModel adminBooksViewModel, Book book)
         {
             InitializeComponent();
-            DataContext = new BookViewModel(this, booksViewModel);
+            DataContext = new UpdateBookViewModel(this, adminBooksViewModel, book);
         }
     }
 }

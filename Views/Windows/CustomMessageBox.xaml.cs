@@ -1,7 +1,4 @@
-﻿using Library.ViewModels;
-using Library.ViewModels.Admin;
-using Library.Views.Controls.Admin;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,17 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Library.Views.Windows.Admin
+namespace Library.Views.Windows
 {
     /// <summary>
-    /// Interaction logic for AddBookWindow.xaml
+    /// Interaction logic for CustomMessageBox.xaml
     /// </summary>
-    public partial class AddBookWindow : Window
+    public partial class CustomMessageBox : Window
     {
-        public AddBookWindow(AdminBooksViewModel booksViewModel)
+        public CustomMessageBox(string message)
         {
             InitializeComponent();
-            DataContext = new BookViewModel(this, booksViewModel);
+            MessageText.Text = message;
+        }
+
+        private void OKButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

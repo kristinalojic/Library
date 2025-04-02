@@ -58,7 +58,7 @@ namespace Library.ViewModels
             await Task.Delay(500);
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
             {
-                Message = "Neuspješna prijava. Pokušajte ponovo.";
+                Message = "Unesite korisnicko ime i lozinku";
             }
             else 
             { 

@@ -18,5 +18,14 @@ namespace Library.DAO.MySQL
                 return await _db.Genres.ToListAsync();
             }
         }
+
+        public async Task<int> GetIdByNameAsync(string name)
+        {
+            using (var _db = new LibraryDbContext())
+            {
+                var genre =  await _db.Genres.FirstOrDefaultAsync(g => g.Name == name);
+                return genre != null ? genre.Id :0;
+            }
+        }
     }
 }
