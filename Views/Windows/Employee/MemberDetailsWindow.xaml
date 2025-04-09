@@ -5,9 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Library.Views.Windows.Employee"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:helpers="clr-namespace:Library.Helpers"
         mc:Ignorable="d"
-        d:DesignHeight="510"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        d:DesignHeight="500"
         d:DesignWidth="800">
+    <Window.Resources>
+        <helpers:BoolToYesNoConverter x:Key="BoolToYesNoConverter" />
+    </Window.Resources>
     <Grid Background="{DynamicResource MaterialDesignPaper}">
         <TabControl materialDesign:ColorZoneAssist.Mode="SecondaryLight">
             <TabItem Header="Loans">
@@ -25,24 +31,20 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <materialDesign:PackIcon Style="{StaticResource SearchIcon}" />
-                        <TextBox  Grid.Column="1"
-                                  materialDesign:HintAssist.Hint="Pretrazi"
-                                  Style="{StaticResource SearchTextBox}" />
                         <Button Grid.Column="3"
-                                Command="{Binding AddEmployeeCommand}"
+                                Command="{Binding CheckInCommand}"
                                 Style="{StaticResource UserControlButton}">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal"
                                             VerticalAlignment="Center">
                                     <materialDesign:PackIcon Kind="CheckAll"
                                                              Style="{StaticResource UserControlButtonIcon}" />
-                                    <TextBlock Text="Chech in" />
+                                    <TextBlock Text="Check in" />
                                 </StackPanel>
                             </Button.Content>
                         </Button>
                         <Button Grid.Column="4"
-                                Command="{Binding AddEmployeeCommand}"
+                                Command="{Binding ExtendCommand}"
                                 Style="{StaticResource UserControlButton}">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal"
@@ -54,10 +56,64 @@
                             </Button.Content>
                         </Button>
                     </Grid>
-                    <DataGrid Grid.Row="1"
-                              ItemsSource="{Binding ActiveEmployees}"
-                              AutoGenerateColumns="False"
-                              Margin="10" />
+                    <Grid Grid.Row="1"
+                          Margin="0,20,0,0">
+                        <ContentControl>
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <DataGrid ItemsSource="{Binding ActiveLoans}"
+                                                      SelectedItem="{Binding SelectedLoan, Mode=TwoWay}"
+                                                      AutoGenerateColumns="False"
+                                                      CanUserAddRows="False"
+                                                      CanUserDeleteRows="False"
+                                                      VerticalScrollBarVisibility="Auto"
+                                                      HorizontalScrollBarVisibility="Auto"
+                                                      FontSize="14">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Title"
+                                                                        Width="2*"
+                                                                        Binding="{Binding BookNavigation.Title}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Author"
+                                                                        Width="2*"
+                                                                        Binding="{Binding BookNavigation.Author}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Issue date"
+                                                                        Width="2*"
+                                                                        Binding="{Binding IssueDate, StringFormat={}{0:d.M.yyyy.}}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Due date"
+                                                                        Width="2*"
+                                                                        Binding="{Binding DueDate, StringFormat={}{0:d.M.yyyy.}}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Extended"
+                                                                        Width="*"
+                                                                        Binding="{Binding HasBeenExtended, Converter={StaticResource BoolToYesNoConverter}}"
+                                                                        IsReadOnly="True" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ActiveLoansCount}"
+                                                     Value="0">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <TextBlock Text="No data"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"
+                                                               FontSize="26"
+                                                               Foreground="{DynamicResource MaterialDesignBody}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Loan history"
@@ -74,15 +130,60 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <materialDesign:PackIcon Style="{StaticResource SearchIcon}" />
-                        <TextBox  Grid.Column="1"
-                                  materialDesign:HintAssist.Hint="Pretrazi"
-                                  Style="{StaticResource SearchTextBox}" />
                     </Grid>
-                    <DataGrid Grid.Row="1"
-                              ItemsSource="{Binding ActiveEmployees}"
-                              AutoGenerateColumns="False"
-                              Margin="10" />
+                    <Grid Grid.Row="1"
+                          Margin="0,20,0,0">
+                        <ContentControl>
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <DataGrid ItemsSource="{Binding ReturnedLoans}"
+                                                      AutoGenerateColumns="False"
+                                                      CanUserAddRows="False"
+                                                      CanUserDeleteRows="False"
+                                                      VerticalScrollBarVisibility="Auto"
+                                                      HorizontalScrollBarVisibility="Auto"
+                                                      FontSize="14">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Title"
+                                                                        Width="2*"
+                                                                        Binding="{Binding BookNavigation.Title}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Author"
+                                                                        Width="2*"
+                                                                        Binding="{Binding BookNavigation.Author}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Issue date"
+                                                                        Width="2*"
+                                                                        Binding="{Binding IssueDate, StringFormat={}{0:d.M.yyyy.}}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Due date"
+                                                                        Width="2*"
+                                                                        Binding="{Binding DueDate, StringFormat={}{0:d.M.yyyy.}}"
+                                                                        IsReadOnly="True" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ReturnedLoansCount}"
+                                                     Value="0">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <TextBlock Text="No data"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"
+                                                               FontSize="26"
+                                                               Foreground="{DynamicResource MaterialDesignBody}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Update">
@@ -114,8 +215,8 @@
                              Foreground="{DynamicResource MaterialDesignBody}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              IsReadOnly="False"
-                             Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
-                             Margin="0,10,0,10" />
+                             Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                             Margin="0,10,0,10"/>
                     <materialDesign:PackIcon Kind="AccountCircleOutline"
                                              Width="24"
                                              Height="24"
@@ -129,7 +230,7 @@
                              Foreground="{DynamicResource MaterialDesignBody}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              IsReadOnly="False"
-                             Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                              Margin="0,10,0,10" />
                     <materialDesign:PackIcon Kind="PhoneOutline"
                                              Foreground="{DynamicResource MaterialDesignBody}"
@@ -144,7 +245,7 @@
                              Foreground="{DynamicResource MaterialDesignBody}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              IsReadOnly="False"
-                             Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                              Margin="0,10,0,10" />
                     <materialDesign:PackIcon Kind="MailOutline"
                                              Foreground="{DynamicResource MaterialDesignBody}"
@@ -159,7 +260,7 @@
                              Foreground="{DynamicResource MaterialDesignBody}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              IsReadOnly="False"
-                             Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                              Margin="0,10,0,10" />
                     <materialDesign:PackIcon Kind="AddressMarkerOutline"
                                              Foreground="{DynamicResource MaterialDesignBody}"
@@ -175,7 +276,7 @@
                              Foreground="{DynamicResource MaterialDesignBody}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              IsReadOnly="False"
-                             Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding Address, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                              Margin="0,10,0,10" />
                     <materialDesign:PackIcon Grid.Row="5"
                                              Kind="CalendarOutline"
@@ -191,7 +292,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"
-                                   Text="Membership due date: 13.07.2025"
+                                   Text="{Binding DueDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                    FontFamily="MaterialDesignFont"
                                    Margin="0,25,5,0"
                                    Foreground="{DynamicResource MaterialDesignBody}" />
@@ -199,6 +300,7 @@
                                 HorizontalAlignment="Right"
                                 Margin="0,8,0,0"
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Command="{Binding ExtendMembershipCommand}"
                                 Style="{StaticResource MaterialDesignIconButton}"
                                 ToolTip="Renew membership">
                             <materialDesign:PackIcon Kind="AddBold" />
@@ -209,21 +311,13 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="1"
-                                Margin="40,70,20,20"
-                                Height="40"
-                                FontSize="18"
-                                materialDesign:ButtonAssist.CornerRadius="5"
-                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                                Style="{StaticResource MaterialDesignRaisedButton}">
-                            <TextBlock Text="Cancel" />
-                        </Button>
                         <Button Grid.Column="2"
-                                Margin="0,70,20,20"
+                                VerticalAlignment="Bottom"
+                                Margin="0,130,20,0"
                                 Height="40"
                                 FontSize="18"
+                                Command="{Binding SubmitCommand}"
                                 materialDesign:ButtonAssist.CornerRadius="5"
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignRaisedButton}">

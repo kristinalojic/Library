@@ -10,5 +10,11 @@ namespace Library.DAO
     interface IMember
     {
         Task<List<Member>> GetAllMembersAsync();
+
+        Task<bool> AddMemberAsync(Member member);
+
+        Task<bool> UpdateMemberAsync(Member member);
+
+        Task<bool> UpdateMemberWithFeeAsync(Member member);
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Library.ViewModels;
+using Library.ViewModels.Admin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,10 @@ namespace Library.Views.Windows.Admin
     /// </summary>
     public partial class AddEmployeeWindow : Window
     {
-        public AddEmployeeWindow()
+        public AddEmployeeWindow(EmployeesViewModel employeesViewModel)
         {
             InitializeComponent();
+            DataContext = new AddEmployeeViewModel(this, employeesViewModel);
         }
     }
 }

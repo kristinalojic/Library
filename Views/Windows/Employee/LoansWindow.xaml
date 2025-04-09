@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Library.Views.Windows.Employee"
+        xmlns:helpers="clr-namespace:Library.Helpers"
         mc:Ignorable="d"
-        Title="LoansWindow" Height="450" Width="800">
+        Height="550"
+        Width="800"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        FontSize="15">
+    <Window.Resources>
+        <helpers:BoolToYesNoConverter x:Key="BoolToYesNoConverter" />
+    </Window.Resources>
     <Grid Background="{DynamicResource MaterialDesignPaper}">
         <TabControl materialDesign:ColorZoneAssist.Mode="SecondaryLight">
             <TabItem Header="Active">
@@ -23,16 +31,60 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <materialDesign:PackIcon Style="{StaticResource SearchIcon}" />
-                        <TextBox  Grid.Column="1"
-                                  materialDesign:HintAssist.Hint="Pretrazi"
-                                  Style="{StaticResource SearchTextBox}" />
                     </Grid>
-                    <DataGrid Grid.Row="1"
-                              ItemsSource="{Binding ActiveEmployees}"
-                              AutoGenerateColumns="False"
-                              Margin="10,10,10,10"
-                              Grid.ColumnSpan="3" />
+                    <Grid Grid.Row="1"
+                          Margin="0,20,0,0">
+                        <ContentControl>
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <DataGrid ItemsSource="{Binding ActiveLoans}"
+                                                      AutoGenerateColumns="False"
+                                                      CanUserAddRows="False"
+                                                      CanUserDeleteRows="False"
+                                                      VerticalScrollBarVisibility="Auto"
+                                                      HorizontalScrollBarVisibility="Auto"
+                                                      FontSize="14">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Member"
+                                                                        Width="2*"
+                                                                        Binding="{Binding FullName}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Issue date"
+                                                                        Width="2*"
+                                                                        Binding="{Binding IssueDate, StringFormat={}{0:d.M.yyyy.}}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Due date"
+                                                                        Width="2*"
+                                                                        Binding="{Binding DueDate, StringFormat={}{0:d.M.yyyy.}}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Extended"
+                                                                        Width="*"
+                                                                        Binding="{Binding HasBeenExtended, Converter={StaticResource BoolToYesNoConverter}}"
+                                                                        IsReadOnly="True" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ActiveLoansCount}"
+                                                     Value="0">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <TextBlock Text="No data"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"
+                                                               FontSize="26"
+                                                               Foreground="{DynamicResource MaterialDesignBody}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="History">
@@ -48,15 +100,56 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <materialDesign:PackIcon Style="{StaticResource SearchIcon}" />
-                        <TextBox  Grid.Column="1"
-                                  materialDesign:HintAssist.Hint="Pretrazi"
-                                  Style="{StaticResource SearchTextBox}" />
                     </Grid>
-                    <DataGrid Grid.Row="1"
-                              ItemsSource="{Binding ActiveEmployees}"
-                              AutoGenerateColumns="False"
-                              Margin="10" />
+                    <Grid Grid.Row="1"
+                          Margin="0,20,0,0">
+                        <ContentControl>
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <DataGrid ItemsSource="{Binding ReturnedLoans}"
+                                                      AutoGenerateColumns="False"
+                                                      CanUserAddRows="False"
+                                                      CanUserDeleteRows="False"
+                                                      VerticalScrollBarVisibility="Auto"
+                                                      HorizontalScrollBarVisibility="Auto"
+                                                      FontSize="14">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Member"
+                                                                        Width="2*"
+                                                                        Binding="{Binding FullName}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Issue date"
+                                                                        Width="2*"
+                                                                        Binding="{Binding IssueDate, StringFormat={}{0:d.M.yyyy.}}"
+                                                                        IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Due date"
+                                                                        Width="2*"
+                                                                        Binding="{Binding DueDate, StringFormat={}{0:d.M.yyyy.}}"
+                                                                        IsReadOnly="True" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ReturnedLoansCount}"
+                                                     Value="0">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <TextBlock Text="No data"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"
+                                                               FontSize="26"
+                                                               Foreground="{DynamicResource MaterialDesignBody}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Grid>
                 </Grid>
             </TabItem>
         </TabControl>

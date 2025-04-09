@@ -33,16 +33,29 @@ namespace Library.DAO.MySQL
             }
         }
 
+        public async Task ReturnBook(int id)
+        {
+            using (var _context = new LibraryDbContext())
+            {
+                    var book = await _context.Books.FindAsync(id);
+                    book.AvailableCopies++;
+                    await _context.SaveChangesAsync();
+            }
+        }
+
         public async Task<bool> UpdateBookAsync(Book b)
         {
             using (var _context = new LibraryDbContext())
             {
                 try
                 {
+                
                     var book = await _context.Books.FindAsync(b.Id);
 
                     if (book != null)
                     {
+                        if (_context.Books.Any(bo => bo.Title == b.Title && bo.Author == b.Author && b.Id != bo.Id))
+                            return false;
                         book.IsAvailable = b.IsAvailable;
                         book.Author = b.Author;
                         book.Title = b.Title;

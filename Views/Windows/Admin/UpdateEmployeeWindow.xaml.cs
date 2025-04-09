@@ -1,5 +1,5 @@
 ﻿using Library.Models.Entities;
-using Library.ViewModels.Employee;
+using Library.ViewModels.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,17 +14,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Library.Views.Windows.Employee
+namespace Library.Views.Windows.Admin
 {
     /// <summary>
-    /// Interaction logic for LoansWindow.xaml
+    /// Interaction logic for UpdateEmployeeWindow.xaml
     /// </summary>
-    public partial class LoansWindow : Window
+    public partial class UpdateEmployeeWindow : Window
     {
-        public LoansWindow(EmployeeBooksViewModel model, Book book)
+        public UpdateEmployeeWindow(EmployeesViewModel employeesViewModel, Models.Entities.Employee employee)
         {
             InitializeComponent();
-            DataContext = new BookLoansViewModel(book);
+            DataContext = new UpdateEmployeeViewModel(this, employeesViewModel, employee);
         }
     }
 }

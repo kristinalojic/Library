@@ -71,7 +71,7 @@ namespace Library.Views.Windows.Employee
 
                         switch (selectedText)
                         {
-                            case "Users":
+                            case "Members":
                                 MainContentControl.Content = new UsersUserControl();
                                 break;
                             case "Books":

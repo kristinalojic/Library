@@ -20,4 +20,9 @@ public partial class Member
     public virtual ICollection<Loan> Loans { get; set; } = new List<Loan>();
 
     public virtual MembershipFee? MembershipFee { get; set; }
+
+    public override string ToString()
+    {
+        return $"{Name} {Surname}, ({MembershipCardNumber})";
+    }
 }

@@ -17,14 +17,14 @@ using System.Windows.Shapes;
 namespace Library.Views.Windows.Employee
 {
     /// <summary>
-    /// Interaction logic for LoansWindow.xaml
+    /// Interaction logic for CheckOutBookWindow.xaml
     /// </summary>
-    public partial class LoansWindow : Window
+    public partial class CheckOutBookWindow : Window
     {
-        public LoansWindow(EmployeeBooksViewModel model, Book book)
+        public CheckOutBookWindow(EmployeeBooksViewModel model, Book book)
         {
             InitializeComponent();
-            DataContext = new BookLoansViewModel(book);
+            DataContext = new CheckOutViewModel(this, book, model);
         }
     }
 }

@@ -15,7 +15,11 @@ public partial class Loan
 
     public bool HasBeenExtended { get; set; }
 
+    public bool IsReturned { get; set; }
+
     public virtual Book BookNavigation { get; set; } = null!;
 
     public virtual Member MemberNavigation { get; set; } = null!;
+
+    public string FullName => $"{MemberNavigation.Name} {MemberNavigation.Surname}";
 }

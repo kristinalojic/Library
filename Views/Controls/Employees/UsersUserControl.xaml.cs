@@ -1,4 +1,5 @@
-﻿using Library.ViewModels.Employee;
+﻿using Library.ViewModels.Admin;
+using Library.ViewModels.Employee;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,13 @@ namespace Library.Views.Controls.Employees
         public UsersUserControl()
         {
             InitializeComponent();
-            DataContext = new MembersViewModel();
+            this.Loaded += MembersUserControl_Loaded;
+        }
+
+        private async void MembersUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            MembersViewModel viewModel = await MembersViewModel.CreateAsync();
+            DataContext = viewModel;
         }
     }
 }

@@ -11,5 +11,7 @@ namespace Library.DAO
     {
         Task<Employee?> FindByUsernameAndPasswordAsync(string username, string password);
         Task<List<Employee>> GetAllEmployeesAsync();
+        Task<bool> UpdateEmployeeAsync(Employee employee);
+        Task<bool> AddEmployeeAsync(Employee employee);
     }
 }

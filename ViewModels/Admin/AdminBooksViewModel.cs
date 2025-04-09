@@ -118,17 +118,23 @@ namespace Library.ViewModels.Admin
         public ICommand ActivateCommand { get; set; }
         public ICommand UpdateBookCommand { get; set; }
 
-        public AdminBooksViewModel()
+        private AdminBooksViewModel()
         {
             _booksDAO = new BookDAO();
-            LoadBooks();
             AddBookCommand = new RelayCommand(AddBook, CanAddBook);
             DeleteCommand = new RelayCommand(async obj => await DeleteSelectedBook(obj), CanDeleteSelectedBook);
             ActivateCommand = new RelayCommand(async obj => await ActivateSelectedBook(obj), CanActivateSelectedBook);
             UpdateBookCommand = new RelayCommand(UpdateSelectedBook, CanUpdateSelectedBook);
         }
 
-        public async void LoadBooks()
+        public static async Task<AdminBooksViewModel> CreateAsync()
+        {
+            var viewModel = new AdminBooksViewModel();
+            await viewModel.LoadBooks(); 
+            return viewModel;
+        }
+
+        public async Task LoadBooks()
         {
             var books = await _booksDAO.GetAllBooksAsync();
             AvailableBooks = new ObservableCollection<Book>(books.Where(b => b.IsAvailable));

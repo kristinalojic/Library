@@ -24,7 +24,13 @@ namespace Library.Views.Controls.Admin
         public EmployeesUserControl()
         {
             InitializeComponent();
-            DataContext = new EmployeesViewModel();
+            this.Loaded += EmployeesUserControl_Loaded;
+        }
+
+        private async void EmployeesUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            EmployeesViewModel viewModel = await EmployeesViewModel.CreateAsync();
+            DataContext = viewModel; 
         }
     }
 }

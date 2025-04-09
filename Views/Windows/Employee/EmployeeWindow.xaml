@@ -38,7 +38,7 @@
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Account"
                                                      Style="{StaticResource MenuIcon}" />
-                            <TextBlock Text="Users"
+                            <TextBlock Text="Members"
                                        Style="{StaticResource TextBlockMenu}" />
                         </StackPanel>
                     </ListBoxItem>

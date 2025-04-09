@@ -42,7 +42,11 @@ namespace Library.ViewModels
         public string? Author
         {
             get => _author;
-            set => SetProperty(ref _author, value);
+            set
+            {
+                SetProperty(ref _author, value);
+                OnPropertyChanged(nameof(Title));
+            }
         }
 
         public string _genre;
@@ -79,6 +83,8 @@ namespace Library.ViewModels
         public ICommand CancelCommand { get; set; }
         public ICommand SubmitCommand { get; set; }
 
+        List<Book> books;
+
         public BookViewModel(Window window, AdminBooksViewModel adminBooksViewModel)
         {
             _currentWindow = window;
@@ -88,6 +94,12 @@ namespace Library.ViewModels
             _genreDAO = new GenreDAO();
             _bookDAO = new BookDAO();
             LoadGenres();
+            LoadBooks();
+        }
+
+        async void LoadBooks()
+        {
+            books = await _bookDAO.GetAllBooksAsync();
         }
 
         private async void LoadGenres()
@@ -136,7 +148,8 @@ namespace Library.ViewModels
                 {
                     var messageBox = new CustomMessageBox("Knjiga uspjesno dodana.");
                     messageBox.ShowDialog();
-                    _adminBooksViewModel.LoadBooks();
+                    await _adminBooksViewModel.LoadBooks();
+                    books.Add(NewBook);
                 }
                 else
                 {
@@ -161,6 +174,7 @@ namespace Library.ViewModels
                 return columnName switch
                 {
                     nameof(Title) when string.IsNullOrWhiteSpace(Title) => "Naslov ne može biti prazan.",
+                    nameof(Title) when books.Any(b => string.Equals(b.Title, Title, StringComparison.OrdinalIgnoreCase) && string.Equals(b.Author, Author, StringComparison.OrdinalIgnoreCase)) => "Knjiga vec postoji.",
                     nameof(Author) when string.IsNullOrWhiteSpace(Author) => "Autor ne može biti prazan.",
                     nameof(YearOfPublication) when string.IsNullOrWhiteSpace(YearOfPublication) => "Godina izdanja ne može biti prazna.",
                     nameof(YearOfPublication) when !int.TryParse(YearOfPublication, out year) => "Godina izdanja mora biti broj.",

@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using System.ComponentModel;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Library.ViewModels.Admin
 {
@@ -39,7 +40,11 @@ namespace Library.ViewModels.Admin
         public string? Author
         {
             get => _author;
-            set => SetProperty(ref _author, value);
+            set
+            {
+                SetProperty(ref _author, value);
+                OnPropertyChanged(nameof(Title));
+            }
         }
 
         public string _genre;
@@ -76,6 +81,8 @@ namespace Library.ViewModels.Admin
         public ICommand CancelCommand { get; set; }
         public ICommand SubmitCommand { get; set; }
 
+        List<Book> books;
+
         public UpdateBookViewModel(Window window, AdminBooksViewModel adminBooksViewModel, Book book)
         {
             _currentWindow = window;
@@ -87,6 +94,12 @@ namespace Library.ViewModels.Admin
             _bookDAO = new BookDAO();
             LoadGenres();
             SetData();
+            LoadBooks();
+        }
+
+        async void LoadBooks()
+        {
+            books = await _bookDAO.GetAllBooksAsync();
         }
 
         private async void LoadGenres()
@@ -148,7 +161,7 @@ namespace Library.ViewModels.Admin
                 {
                     var messageBox = new CustomMessageBox("Knjiga uspjesno izmijenjena.");
                     messageBox.ShowDialog();
-                    _adminBooksViewModel.LoadBooks();
+                    await _adminBooksViewModel.LoadBooks();
                 }
                 else
                 {
@@ -173,6 +186,7 @@ namespace Library.ViewModels.Admin
                 return columnName switch
                 {
                     nameof(Title) when string.IsNullOrWhiteSpace(Title) => "Naslov ne može biti prazan.",
+                    nameof(Title) when books.Any(b => string.Equals(b.Title, Title, StringComparison.OrdinalIgnoreCase) && string.Equals(b.Author, Author, StringComparison.OrdinalIgnoreCase) && b.Id != _selectedBook.Id) => "Knjiga vec postoji.",
                     nameof(Author) when string.IsNullOrWhiteSpace(Author) => "Autor ne može biti prazan.",
                     nameof(YearOfPublication) when string.IsNullOrWhiteSpace(YearOfPublication) => "Godina izdanja ne može biti prazna.",
                     nameof(YearOfPublication) when !int.TryParse(YearOfPublication, out year) => "Godina izdanja mora biti broj.",

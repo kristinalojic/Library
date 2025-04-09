@@ -24,7 +24,13 @@ namespace Library.Views.Controls.Admin
         public BooksUserControl()
         {
             InitializeComponent();
-            DataContext = new AdminBooksViewModel();
+            this.Loaded += BooksUserControl_Loaded; 
+        }
+
+        private async void BooksUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            AdminBooksViewModel viewModel = await AdminBooksViewModel.CreateAsync();
+            DataContext = viewModel; 
         }
     }
 }

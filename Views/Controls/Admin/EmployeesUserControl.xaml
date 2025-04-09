@@ -28,6 +28,7 @@
                         <materialDesign:PackIcon Style="{StaticResource SearchIcon}" />
                         <TextBox  Grid.Column="1"
                                   materialDesign:HintAssist.Hint="Pretrazi"
+                                  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                                   Style="{StaticResource SearchTextBox}"/>
                         <Button Grid.Column="3"
                                 Command="{Binding AddEmployeeCommand}"
@@ -42,7 +43,7 @@
                             </Button.Content>
                         </Button>
                         <Button Grid.Column="4"
-                                Command="{Binding AddEmployeeCommand}"
+                                Command="{Binding DeleteCommand}"
                                 Style="{StaticResource UserControlButton}">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal"
@@ -54,7 +55,7 @@
                             </Button.Content>
                         </Button>
                         <Button Grid.Column="5"
-                                Command="{Binding AddEmployeeCommand}"
+                                Command="{Binding UpdateEmployeeCommand}"
                                 Style="{StaticResource UserControlButton}">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal"
@@ -73,7 +74,8 @@
                                 <Style TargetType="ContentControl">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <DataGrid ItemsSource="{Binding ActiveEmployees}"
+                                            <DataGrid ItemsSource="{Binding FilteredActiveEmployees}"
+                                                      SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}"
                                                       AutoGenerateColumns="False"
                                                       CanUserAddRows="False"
                                                       CanUserDeleteRows="False"
@@ -150,9 +152,10 @@
                         <materialDesign:PackIcon Style="{StaticResource SearchIcon}" />
                         <TextBox  Grid.Column="1"
                                   materialDesign:HintAssist.Hint="Pretrazi"
-                                  Style="{StaticResource SearchTextBox}" />
+                                  Style="{StaticResource SearchTextBox}"
+                                  Text="{Binding SearchText2, UpdateSourceTrigger=PropertyChanged}" />
                         <Button Grid.Column="3"
-                                Command="{Binding AddEmployeeCommand}"
+                                Command="{Binding ActivateCommand}"
                                 Style="{StaticResource UserControlButton}">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal"
@@ -171,7 +174,8 @@
                                 <Style TargetType="ContentControl">
                                     <Setter Property="Content">
                                         <Setter.Value>
-                                            <DataGrid ItemsSource="{Binding InactiveEmployees}"
+                                            <DataGrid ItemsSource="{Binding FilteredInactiveEmployees}"
+                                                      SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}"
                                                       AutoGenerateColumns="False"
                                                       CanUserAddRows="False"
                                                       VerticalScrollBarVisibility="Auto"

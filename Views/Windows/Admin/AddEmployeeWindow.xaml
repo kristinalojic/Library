@@ -6,9 +6,9 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Library.Views.Windows.Admin"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        FocusManager.FocusedElement="{Binding ElementName=NameTextBox}"
         mc:Ignorable="d"
-        Title="AddEmployeeWindow"
-        Height="530"
+        Height="550"
         Width="430"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -37,13 +37,14 @@
                                      Grid.Row="0"
                                      VerticalAlignment="Center"
                                      Foreground="{DynamicResource MaterialDesignBody}" />
-            <TextBox Grid.Row="0"
+            <TextBox x:Name="NameTextBox"
+                     Grid.Row="0"
                      Grid.Column="1"
                      materialDesign:HintAssist.Hint="Name"
                      Foreground="{DynamicResource MaterialDesignBody}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      IsReadOnly="False"
-                     Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                      Margin="0,10" />
             <materialDesign:PackIcon Kind="AccountCircleOutline"
                                      Width="24"
@@ -58,7 +59,7 @@
                      Foreground="{DynamicResource MaterialDesignBody}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      IsReadOnly="False"
-                     Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                      Margin="0,10" />
             <materialDesign:PackIcon Kind="AccountBoxOutline"
                                      Foreground="{DynamicResource MaterialDesignBody}"
@@ -73,7 +74,7 @@
                      Foreground="{DynamicResource MaterialDesignBody}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      IsReadOnly="False"
-                     Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                      Margin="0,10" />
             <materialDesign:PackIcon Kind="CardAccountDetailsOutline"
                                      Foreground="{DynamicResource MaterialDesignBody}"
@@ -89,7 +90,7 @@
                      Foreground="{DynamicResource MaterialDesignBody}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      IsReadOnly="False"
-                     Text="{Binding Jib, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding JMBG, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                      Margin="0,10" />
             <materialDesign:PackIcon Kind="PhoneOutline"
                                      Foreground="{DynamicResource MaterialDesignBody}"
@@ -104,7 +105,7 @@
                      Foreground="{DynamicResource MaterialDesignBody}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      IsReadOnly="False"
-                     Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                      Margin="0,10" />
             <materialDesign:PackIcon Kind="MailOutline"
                                      Foreground="{DynamicResource MaterialDesignBody}"
@@ -119,7 +120,7 @@
                      Foreground="{DynamicResource MaterialDesignBody}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      IsReadOnly="False"
-                     Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                      Margin="0,10" />
             <materialDesign:PackIcon Kind="AddressMarkerOutline"
                                      Foreground="{DynamicResource MaterialDesignBody}"
@@ -135,7 +136,7 @@
                      Foreground="{DynamicResource MaterialDesignBody}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      IsReadOnly="False"
-                     Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Address, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                      Margin="0,10" />
             <Grid Grid.Row="7"
                   Grid.Column="1">
@@ -148,7 +149,7 @@
                         Height="40"
                         FontSize="18"
                         materialDesign:ButtonAssist.CornerRadius="5"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Command="{Binding CancelCommand}"
                         Style="{StaticResource MaterialDesignRaisedButton}">
                     <TextBlock Text="Cancel" />
                 </Button>
@@ -157,7 +158,7 @@
                         Height="40"
                         FontSize="18"
                         materialDesign:ButtonAssist.CornerRadius="5"
-                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Command="{Binding SubmitCommand}"
                         Style="{StaticResource MaterialDesignRaisedButton}">
                     <TextBlock Text="Submit" />
                 </Button>

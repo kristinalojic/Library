@@ -88,6 +88,8 @@ public partial class LibraryDbContext : DbContext
 
             entity.HasIndex(e => e.Phone, "Phone_UNIQUE").IsUnique();
 
+            entity.HasIndex(e => e.Username, "Username_UNIQUE").IsUnique();
+
             entity.HasIndex(e => e.Id, "id_UNIQUE").IsUnique();
 
             entity.Property(e => e.AccountType)
@@ -135,6 +137,7 @@ public partial class LibraryDbContext : DbContext
             entity.Property(e => e.IssueDate).HasColumnName("Issue_date");
             entity.Property(e => e.DueDate).HasColumnName("Due_date");
             entity.Property(e => e.HasBeenExtended).HasColumnName("Has_been_extended");
+            entity.Property(e => e.IsReturned).HasColumnName("Is_Returned");
 
             entity.HasOne(d => d.BookNavigation).WithMany(p => p.Loans)
                 .HasForeignKey(d => d.Book)
@@ -153,11 +156,13 @@ public partial class LibraryDbContext : DbContext
 
             entity.ToTable("member");
 
+            entity.HasIndex(e => e.Email, "Email_UNIQUE").IsUnique();
+
+            entity.HasIndex(e => e.Phone, "Phone_UNIQUE").IsUnique();
+
             entity.HasIndex(e => e.MembershipCardNumber, "id_UNIQUE").IsUnique();
 
-            entity.Property(e => e.MembershipCardNumber)
-                .ValueGeneratedNever()
-                .HasColumnName("Membership_card_number");
+            entity.Property(e => e.MembershipCardNumber).HasColumnName("Membership_card_number");
             entity.Property(e => e.Address).HasMaxLength(45);
             entity.Property(e => e.Email).HasMaxLength(45);
             entity.Property(e => e.Name).HasMaxLength(15);
