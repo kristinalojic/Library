@@ -13,6 +13,7 @@
                                              SecondaryColor="DeepPurple" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
                 <ResourceDictionary Source="/Resources/Dictionary.xaml" />
+                <ResourceDictionary Source="Resources/StringResources.sr.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <helpers:EqualityConverter x:Key="EqualityConverter" />
         </ResourceDictionary>

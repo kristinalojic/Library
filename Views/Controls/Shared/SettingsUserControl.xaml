@@ -10,22 +10,22 @@
              d:DesignWidth="800">
     <Grid Background="{DynamicResource MaterialDesignPaper}">
         <TabControl materialDesign:ColorZoneAssist.Mode="SecondaryLight">
-            <TabItem Header="General settings">
+            <TabItem Header="{DynamicResource GeneralSettings}">
                 <StackPanel Margin="20,20">
-                    <TextBlock Text="Theme"
+                    <TextBlock Text="{DynamicResource Theme}"
                                FontWeight="Bold"
                                FontSize="20"
                                Margin="0,10,0,10"
                                Foreground="{DynamicResource MaterialDesignBody}" />
                     <StackPanel Orientation="Horizontal">
-                        <RadioButton Content="Light"
+                        <RadioButton Content="{DynamicResource Light}"
                                      GroupName="Group1"
                                      Margin="5"
                                      IsChecked="{Binding SelectedTheme, Converter={StaticResource EqualityConverter}, ConverterParameter=Light}"
                                      Command="{Binding ChangeThemeCommand}"
                                      CommandParameter="Light"
                                      Foreground="{DynamicResource MaterialDesignBody}" />
-                        <RadioButton Content="Dark"
+                        <RadioButton Content="{DynamicResource Dark}"
                                      GroupName="Group1"
                                      Margin="5"
                                      IsChecked="{Binding SelectedTheme, Converter={StaticResource EqualityConverter}, ConverterParameter=Dark}"
@@ -33,26 +33,26 @@
                                      CommandParameter="Dark"
                                      Foreground="{DynamicResource MaterialDesignBody}" />
                     </StackPanel>
-                    <TextBlock Text="Color"
+                    <TextBlock Text="{DynamicResource Color}"
                                FontSize="18"
                                Margin="0,10,0,5"
                                Foreground="{DynamicResource MaterialDesignBody}" />
                     <StackPanel Orientation="Horizontal">
-                        <RadioButton Content="Purple"
+                        <RadioButton Content="{DynamicResource Purple}"
                                      GroupName="Group2"
                                      Margin="5"
                                      IsChecked="{Binding SelectedColor, Converter={StaticResource EqualityConverter}, ConverterParameter=Purple}"
                                      Command="{Binding ChangeColorCommand}"
                                      CommandParameter="Purple"
                                      Foreground="{DynamicResource MaterialDesignBody}" />
-                        <RadioButton Content="Green"
+                        <RadioButton Content="{DynamicResource Green}"
                                      GroupName="Group2"
                                      Margin="5"
                                      IsChecked="{Binding SelectedColor, Converter={StaticResource EqualityConverter}, ConverterParameter=Green}"
                                      Command="{Binding ChangeColorCommand}"
                                      CommandParameter="Green"
                                      Foreground="{DynamicResource MaterialDesignBody}" />
-                        <RadioButton Content="Yellow"
+                        <RadioButton Content="{DynamicResource Yellow}"
                                      GroupName="Group2"
                                      Margin="5"
                                      IsChecked="{Binding SelectedColor, Converter={StaticResource EqualityConverter}, ConverterParameter=Yellow}"
@@ -60,20 +60,25 @@
                                      CommandParameter="Yellow"
                                      Foreground="{DynamicResource MaterialDesignBody}" />
                     </StackPanel>
-                    <TextBlock Text="Language"
+                    <TextBlock Text="{DynamicResource Language}"
                                FontSize="20"
                                FontWeight="Bold"
                                Margin="0,40,0,10"
                                Foreground="{DynamicResource MaterialDesignBody}" />
                     <StackPanel Orientation="Horizontal">
-                        <RadioButton Content="English"
-                                     GroupName="Grupa2"
+                        <RadioButton Content="{DynamicResource English}"
+                                     GroupName="Group3"
                                      Margin="5"
-                                     IsChecked="True"
+                                     IsChecked="{Binding SelectedLanguage, Converter={StaticResource EqualityConverter}, ConverterParameter=English}"
+                                     Command="{Binding ChangeLanguageCommand}"
+                                     CommandParameter="English"
                                      Foreground="{DynamicResource MaterialDesignBody}" />
-                        <RadioButton Content="Serbian"
-                                     GroupName="Grupa2"
+                        <RadioButton Content="{DynamicResource Serbian}"
+                                     GroupName="Group3"
                                      Margin="5"
+                                     IsChecked="{Binding SelectedLanguage, Converter={StaticResource EqualityConverter}, ConverterParameter=Serbian}"
+                                     Command="{Binding ChangeLanguageCommand}"
+                                     CommandParameter="Serbian"
                                      Foreground="{DynamicResource MaterialDesignBody}" />
                     </StackPanel>
                 </StackPanel>

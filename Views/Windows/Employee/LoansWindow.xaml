@@ -17,7 +17,7 @@
     </Window.Resources>
     <Grid Background="{DynamicResource MaterialDesignPaper}">
         <TabControl materialDesign:ColorZoneAssist.Mode="SecondaryLight">
-            <TabItem Header="Active">
+            <TabItem Header="{DynamicResource Active}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -47,19 +47,19 @@
                                                       HorizontalScrollBarVisibility="Auto"
                                                       FontSize="14">
                                                 <DataGrid.Columns>
-                                                    <DataGridTextColumn Header="Member"
+                                                    <DataGridTextColumn Header="{DynamicResource Member}"
                                                                         Width="2*"
                                                                         Binding="{Binding FullName}"
                                                                         IsReadOnly="True" />
-                                                    <DataGridTextColumn Header="Issue date"
+                                                    <DataGridTextColumn Header="{DynamicResource IssueDate}"
                                                                         Width="2*"
                                                                         Binding="{Binding IssueDate, StringFormat={}{0:d.M.yyyy.}}"
                                                                         IsReadOnly="True" />
-                                                    <DataGridTextColumn Header="Due date"
+                                                    <DataGridTextColumn Header="{DynamicResource DueDate}"
                                                                         Width="2*"
                                                                         Binding="{Binding DueDate, StringFormat={}{0:d.M.yyyy.}}"
                                                                         IsReadOnly="True" />
-                                                    <DataGridTextColumn Header="Extended"
+                                                    <DataGridTextColumn Header="{DynamicResource Extended}"
                                                                         Width="*"
                                                                         Binding="{Binding HasBeenExtended, Converter={StaticResource BoolToYesNoConverter}}"
                                                                         IsReadOnly="True" />
@@ -72,7 +72,7 @@
                                                      Value="0">
                                             <Setter Property="Content">
                                                 <Setter.Value>
-                                                    <TextBlock Text="No data"
+                                                    <TextBlock Text="{DynamicResource NoData}"
                                                                HorizontalAlignment="Center"
                                                                VerticalAlignment="Center"
                                                                FontSize="26"
@@ -87,7 +87,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="History">
+            <TabItem Header="{DynamicResource History}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -116,15 +116,15 @@
                                                       HorizontalScrollBarVisibility="Auto"
                                                       FontSize="14">
                                                 <DataGrid.Columns>
-                                                    <DataGridTextColumn Header="Member"
+                                                    <DataGridTextColumn Header="{DynamicResource Member}"
                                                                         Width="2*"
                                                                         Binding="{Binding FullName}"
                                                                         IsReadOnly="True" />
-                                                    <DataGridTextColumn Header="Issue date"
+                                                    <DataGridTextColumn Header="{DynamicResource IssueDate}"
                                                                         Width="2*"
                                                                         Binding="{Binding IssueDate, StringFormat={}{0:d.M.yyyy.}}"
                                                                         IsReadOnly="True" />
-                                                    <DataGridTextColumn Header="Due date"
+                                                    <DataGridTextColumn Header="{DynamicResource DueDate}"
                                                                         Width="2*"
                                                                         Binding="{Binding DueDate, StringFormat={}{0:d.M.yyyy.}}"
                                                                         IsReadOnly="True" />
@@ -137,7 +137,7 @@
                                                      Value="0">
                                             <Setter Property="Content">
                                                 <Setter.Value>
-                                                    <TextBlock Text="No data"
+                                                    <TextBlock Text="{DynamicResource NoData}"
                                                                HorizontalAlignment="Center"
                                                                VerticalAlignment="Center"
                                                                FontSize="26"

@@ -159,7 +159,7 @@ namespace Library.ViewModels.Admin
             }
             else
             {
-                var messageBox = new CustomMessageBox("Selektujte knjigu.");
+                var messageBox = new CustomMessageBox(TryGetResource("SelectBook"));
                 messageBox.ShowDialog();
             }
         }
@@ -176,7 +176,7 @@ namespace Library.ViewModels.Admin
             var _pomBook = SelectedBook;
             if (_pomBook != null)
             {
-                DeleteConfirmationDialog dialog = new DeleteConfirmationDialog("Da li ste sigurni da želite arhivirati knjigu?");
+                DeleteConfirmationDialog dialog = new DeleteConfirmationDialog(TryGetResource("ConfirmArchiveBook"));
                 bool answer = dialog.ShowDialog() ?? false;
 
                 if (answer)
@@ -191,7 +191,7 @@ namespace Library.ViewModels.Admin
             }
             else
             {
-                var messageBox = new CustomMessageBox("Selektujte knjigu.");
+                var messageBox = new CustomMessageBox(TryGetResource("SelectBook"));
                 messageBox.ShowDialog();
             }
         }
@@ -206,7 +206,7 @@ namespace Library.ViewModels.Admin
             var _pomBook = SelectedBook;
             if (_pomBook != null)
             {
-                DeleteConfirmationDialog dialog = new DeleteConfirmationDialog("Da li ste sigurni da želite vratiti knjigu u ponudu?");
+                DeleteConfirmationDialog dialog = new DeleteConfirmationDialog(TryGetResource("ConfirmReturnToOffer"));
                 bool answer = dialog.ShowDialog() ?? false;
 
                 if (answer)
@@ -221,7 +221,7 @@ namespace Library.ViewModels.Admin
             }
             else
             {
-                var messageBox = new CustomMessageBox("Selektujte knjigu.");
+                var messageBox = new CustomMessageBox(TryGetResource("SelectBook"));
                 messageBox.ShowDialog();
             }
         }

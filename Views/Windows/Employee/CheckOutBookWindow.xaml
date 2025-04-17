@@ -21,9 +21,9 @@
                        Margin="30,10,10,0" />
             <StackPanel Orientation="Horizontal"
                         Margin="10,25,10,0">
-                <TextBlock Text="Clan: "
+                <TextBlock Text="{DynamicResource MemberCheckOut}"
                            Foreground="{DynamicResource MaterialDesignBody}"
-                           Margin="20,10,0,0" />
+                           Margin="20,10,5,0" />
                 <materialDesign:AutoSuggestBox VerticalAlignment="Bottom"
                                                Foreground="{DynamicResource MaterialDesignBody}"
                                                Suggestions="{Binding AutoSuggestFilteredMembers}"
@@ -33,9 +33,9 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         Margin="30,25,0,0">
-                <TextBlock Text="Datum povratka: "
+                <TextBlock Text="{DynamicResource ReturnDate}"
                            Foreground="{DynamicResource MaterialDesignBody}"
-                           Margin="0,18,0,0" />
+                           Margin="0,18,5,0" />
                 <DatePicker Width="100"
                             SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                             DisplayDateStart="{x:Static sys:DateTime.Today}"
@@ -53,7 +53,7 @@
                         Command="{Binding CancelCommand}"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignRaisedButton}">
-                    <TextBlock Text="Cancel" />
+                    <TextBlock Text="{DynamicResource Cancel}" />
                 </Button>
                 <Button Grid.Column="0"
                         Margin="0,45,0,0"
@@ -64,7 +64,7 @@
                         Command="{Binding SubmitCommand}"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignRaisedButton}">
-                    <TextBlock Text="Submit" />
+                    <TextBlock Text="{DynamicResource Submit}" />
                 </Button>
             </StackPanel>
         </StackPanel>

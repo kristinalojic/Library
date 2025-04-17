@@ -30,9 +30,17 @@ namespace Library.Views.Windows.Admin
             _loggedEmployee = id;
             ListBox1.SelectedItem = EmployeesMenu;
             EmployeesMenu.IsSelected = true;
-            MainContentControl.Content = new EmployeesUserControl();
-            var theme = new ThemeViewModel(id);
+            this.Loaded += (s, e) => AdminUserControl_Loaded(s, e, id);
         }
+
+        private async void AdminUserControl_Loaded(object sender, RoutedEventArgs e, int id)
+        {
+            ThemeViewModel viewModel = await ThemeViewModel.CreateAsync(id);
+            DataContext = viewModel;
+            Thread.Sleep(10);
+            MainContentControl.Content = new EmployeesUserControl(id);
+        }
+
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -71,7 +79,7 @@ namespace Library.Views.Windows.Admin
                         switch (selectedText)
                         {
                             case "Employees":
-                                MainContentControl.Content = new EmployeesUserControl();
+                                MainContentControl.Content = new EmployeesUserControl(_loggedEmployee);
                                 break;
                             case "Books":
                                 MainContentControl.Content = new BooksUserControl();
@@ -84,6 +92,25 @@ namespace Library.Views.Windows.Admin
                                 loginWindow.Show();
 
                                 var adminWindow = Application.Current.Windows.OfType<AdminWindow>().FirstOrDefault();
+                                if (adminWindow != null)
+                                {
+                                    adminWindow.Close();
+                                }
+                                break;
+                            case "Zaposleni":
+                                MainContentControl.Content = new EmployeesUserControl(_loggedEmployee);
+                                break;
+                            case "Knjige":
+                                MainContentControl.Content = new BooksUserControl();
+                                break;
+                            case "Podešavanja":
+                                MainContentControl.Content = new SettingsUserControl(_loggedEmployee);
+                                break;
+                            case "Odjava":
+                                loginWindow = new Login();
+                                loginWindow.Show();
+
+                                adminWindow = Application.Current.Windows.OfType<AdminWindow>().FirstOrDefault();
                                 if (adminWindow != null)
                                 {
                                     adminWindow.Close();

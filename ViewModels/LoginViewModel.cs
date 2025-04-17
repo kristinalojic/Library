@@ -9,6 +9,8 @@ using System.Windows;
 using Library.Views.Windows.Admin;
 using Library.Views.Windows.Employee;
 using Library.DAO.MySQL;
+using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace Library.ViewModels
 {
@@ -33,6 +35,22 @@ namespace Library.ViewModels
             set => SetProperty(ref _isLoggingIn, value);
         }
 
+        public ObservableCollection<string> AvailableLanguages { get; set; }
+        private string _selectedLanguage;
+
+        public string SelectedLanguage
+        {
+            get => _selectedLanguage;
+            set
+            {
+                if (_selectedLanguage != value)
+                {
+                    SetProperty(ref _selectedLanguage, value);
+                    ChangeLanguage(_selectedLanguage); 
+                }
+            }
+        }
+
         private Window _currentWindow;
 
         public ICommand LoginCommand { get; set; }
@@ -43,8 +61,10 @@ namespace Library.ViewModels
             LoginCommand = new RelayCommand(async (obj) => await ExecuteLogin(obj), CanExecuteLogin);
             _currentWindow = window;
             Task.Run(async () => await _employeeDAO.PreloadDatabase());
+            AvailableLanguages = new ObservableCollection<string> { "SR", "EN" };
+            SelectedLanguage = "SR";
+            ChangeLanguage(SelectedLanguage);
         }
-
 
         private bool CanExecuteLogin(object? obj)
         {
@@ -58,7 +78,7 @@ namespace Library.ViewModels
             await Task.Delay(500);
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
             {
-                Message = "Unesite korisnicko ime i lozinku";
+                Message = TryGetResource("EnterUsernamePassword");
             }
             else 
             { 
@@ -66,7 +86,7 @@ namespace Library.ViewModels
 
                 if (employee == null || !employee.IsAcive)
                 {
-                    Message = "Neuspješna prijava. Pokušajte ponovo.";
+                    Message = TryGetResource("LoginFailedMessage");
                 }
                 else
                 {

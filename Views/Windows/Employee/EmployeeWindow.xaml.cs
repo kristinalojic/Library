@@ -28,12 +28,20 @@ namespace Library.Views.Windows.Employee
         public EmployeeWindow(int id)
         {
             InitializeComponent();
-            var theme = new ThemeViewModel(id);
             _loggedEmployee = id;
+            this.Loaded += (s, e) => EmployeesUserControl_Loaded(s, e, id);
             ListBox1.SelectedItem = UsersMenuItem;
             UsersMenuItem.IsSelected = true;
+        }
+
+        private async void EmployeesUserControl_Loaded(object sender, RoutedEventArgs e, int id)
+        {
+            ThemeViewModel viewModel = await ThemeViewModel.CreateAsync(id);
+            DataContext = viewModel;
+            Thread.Sleep(10);
             MainContentControl.Content = new UsersUserControl();
         }
+
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -85,6 +93,25 @@ namespace Library.Views.Windows.Employee
                                 loginWindow.Show();
 
                                 var employeeWindow = Application.Current.Windows.OfType<EmployeeWindow>().FirstOrDefault();
+                                if (employeeWindow != null)
+                                {
+                                    employeeWindow.Close();
+                                }
+                                break;
+                            case "Članovi":
+                                MainContentControl.Content = new UsersUserControl();
+                                break;
+                            case "Knjige":
+                                MainContentControl.Content = new Controls.Employees.BooksUserControl();
+                                break;
+                            case "Podešavanja":
+                                MainContentControl.Content = new SettingsUserControl(_loggedEmployee);
+                                break;
+                            case "Odjava":
+                                loginWindow = new Login();
+                                loginWindow.Show();
+
+                                employeeWindow = Application.Current.Windows.OfType<EmployeeWindow>().FirstOrDefault();
                                 if (employeeWindow != null)
                                 {
                                     employeeWindow.Close();

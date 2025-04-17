@@ -126,7 +126,7 @@ namespace Library.ViewModels.Employee
             _bookDAO = new BookDAO();
             _memberDAO = new MemberDAO();
             _membersViewModel = model;
-            DueDate = "Expiration date : " + member.MembershipFee.Expiration;
+            DueDate = TryGetResource("ExpirationDate") + " " + member.MembershipFee.Expiration;
             CheckInCommand = new RelayCommand(async obj => await CheckIn(obj), CanCheckIn);
             ExtendCommand = new RelayCommand(async obj => await Extend(obj), CanExtend);
             SubmitCommand = new RelayCommand(async obj => await Submit(obj), CanSubmit);
@@ -158,12 +158,12 @@ namespace Library.ViewModels.Employee
         {
             if (_selectedLoan == null)
             {
-                var messageBox = new CustomMessageBox("Selektujte knjigu.");
+                var messageBox = new CustomMessageBox(TryGetResource("SelectBook"));
                 messageBox.ShowDialog();
             }
             else
             {
-                DeleteConfirmationDialog dialog = new DeleteConfirmationDialog("Da li ste sigurni da želite razduziti knjigu?");
+                DeleteConfirmationDialog dialog = new DeleteConfirmationDialog(TryGetResource("ConfirmReturnBook"));
                 bool answer = dialog.ShowDialog() ?? false;
 
                 if (answer)
@@ -172,7 +172,7 @@ namespace Library.ViewModels.Employee
                     _selectedLoan.IsReturned = true;
                     if (await _loanDAO.UpdateLoanAsync(_selectedLoan))
                     {
-                        var messageBox = new CustomMessageBox("Knjiga razduzena.");
+                        var messageBox = new CustomMessageBox(TryGetResource("BookCheckedIn"));
                         messageBox.ShowDialog();
                         var _book = _selectedLoan.Book;
                         await _bookDAO.ReturnBook(_book);
@@ -180,7 +180,7 @@ namespace Library.ViewModels.Employee
                     }
                     else
                     {
-                        var messageBox = new CustomMessageBox("Nije moguće razduziti knjigu");
+                        var messageBox = new CustomMessageBox(TryGetResource("BookCheckInFailed"));
                         messageBox.ShowDialog();
                     }
                 }
@@ -193,19 +193,19 @@ namespace Library.ViewModels.Employee
         {
             if (_selectedLoan == null)
             {
-                var messageBox = new CustomMessageBox("Selektujte knjigu.");
+                var messageBox = new CustomMessageBox(TryGetResource("SelectBook"));
                 messageBox.ShowDialog();
             }
             else
             {
-                if (_selectedLoan.DueDate >= DateOnly.FromDateTime(DateTime.Today).AddDays(3) || _selectedLoan.HasBeenExtended)
+                if (_selectedLoan.DueDate >= DateOnly.FromDateTime(DateTime.Today).AddDays(3) || _selectedLoan.HasBeenExtended || _selectedLoan.DueDate >= DateOnly.FromDateTime(DateTime.Today))
                 {
-                    var messageBox = new CustomMessageBox("Nije moguće produziti rok.");
+                    var messageBox = new CustomMessageBox(TryGetResource("CannotExtendDueDate"));
                     messageBox.ShowDialog();
                 }
                 else
                 {
-                    DeleteConfirmationDialog dialog = new DeleteConfirmationDialog("Da li ste sigurni da želite produziti rok?");
+                    DeleteConfirmationDialog dialog = new DeleteConfirmationDialog(TryGetResource("AreYouSureToExtendDueDate"));
                     bool answer = dialog.ShowDialog() ?? false;
 
                     if (answer)
@@ -216,14 +216,14 @@ namespace Library.ViewModels.Employee
                             _selectedLoan.HasBeenExtended = true;
                             if (await _loanDAO.UpdateLoanAsync(_selectedLoan))
                             {
-                                var messageBox = new CustomMessageBox("Rok produzen.");
+                                var messageBox = new CustomMessageBox(TryGetResource("DueDateExtended"));
                                 messageBox.ShowDialog();
                                 await LoadLoans();
                             }
                         }
                         else
                         {
-                            var messageBox = new CustomMessageBox("Nije moguće produziti rok.");
+                            var messageBox = new CustomMessageBox(TryGetResource("CannotExtendDueDate"));
                             messageBox.ShowDialog();
                         }
                     }
@@ -237,19 +237,19 @@ namespace Library.ViewModels.Employee
         {
             if (_selectedMember == null)
             {
-                var messageBox = new CustomMessageBox("Greska.");
+                var messageBox = new CustomMessageBox(TryGetResource("Error"));
                 messageBox.ShowDialog();
             }
             else
             {
                 if (_selectedMember.MembershipFee.Expiration >= DateOnly.FromDateTime(DateTime.Today).AddDays(30))
                 {
-                    var messageBox = new CustomMessageBox("Nije moguće produziti clanarinu.");
+                    var messageBox = new CustomMessageBox(TryGetResource("CannotExtendMembership"));
                     messageBox.ShowDialog();
                 }
                 else
                 {
-                    DeleteConfirmationDialog dialog = new DeleteConfirmationDialog("Da li ste sigurni da želite produziti clanarinu?");
+                    DeleteConfirmationDialog dialog = new DeleteConfirmationDialog(TryGetResource("ConfirmExtendMembership"));
                     bool answer = dialog.ShowDialog() ?? false;
 
                     if (answer)
@@ -261,15 +261,15 @@ namespace Library.ViewModels.Employee
 
                             if (await _memberDAO.UpdateMemberWithFeeAsync(_selectedMember))
                             {
-                                var messageBox = new CustomMessageBox("Clanarina produzena.");
+                                var messageBox = new CustomMessageBox(TryGetResource("MembershipExtended"));
                                 messageBox.ShowDialog();
                                 await _membersViewModel.LoadMembers();
-                                DueDate = "Expiration date: " + _selectedMember.MembershipFee.Expiration;
+                                DueDate = TryGetResource("ExpirationDate") + " " + _selectedMember.MembershipFee.Expiration;
                             }
                         }
                         else
                         {
-                            var messageBox = new CustomMessageBox("Nije moguće produziti clanarinu.");
+                            var messageBox = new CustomMessageBox(TryGetResource("CannotExtendMembership"));
                             messageBox.ShowDialog();
                         }
                     }
@@ -304,13 +304,13 @@ namespace Library.ViewModels.Employee
                 };
                 if (await _memberDAO.UpdateMemberAsync(NewMember))
                 {
-                    var messageBox = new CustomMessageBox("Clan je azuriran.");
+                    var messageBox = new CustomMessageBox(TryGetResource("MemberUpdated"));
                     messageBox.ShowDialog();
                     await _membersViewModel.LoadMembers();
                 }
                 else
                 {
-                    var messageBox = new CustomMessageBox("Nije moguće azurirati clana");
+                    var messageBox = new CustomMessageBox(TryGetResource("MemberUpdateFailed"));
                     messageBox.ShowDialog();
                 }
             }
@@ -330,14 +330,14 @@ namespace Library.ViewModels.Employee
                 int phone = 0;
                 return columnName switch
                 {
-                    nameof(Name) when string.IsNullOrWhiteSpace(Name) => "Ime ne moze biti prazno.",
-                    nameof(Surname) when string.IsNullOrWhiteSpace(Surname) => "Prezime ne moze biti prazno.",
-                    nameof(Phone) when string.IsNullOrWhiteSpace(Phone) => "Broj telefona ne moze biti prazan.",
-                    nameof(Phone) when !int.TryParse(Phone, out phone) => "Broj telefona nije validan.",
-                    nameof(Phone) when members.Any(m => m.Phone == Phone && m.Phone != _selectedMember.Phone) => "Telefon postoji.",
-                    nameof(Email) when string.IsNullOrWhiteSpace(Email) => "Email ne može biti prazan.",
-                    nameof(Email) when members.Any(m => string.Equals(m.Email, Email, StringComparison.OrdinalIgnoreCase) && m.Email != _selectedMember.Email) => "Email postoji.",
-                    nameof(Address) when string.IsNullOrWhiteSpace(Address) => "Adresa ne može biti prazana.",
+                    nameof(Name) when string.IsNullOrWhiteSpace(Name) => TryGetResource("EmptyField"),
+                    nameof(Surname) when string.IsNullOrWhiteSpace(Surname) => TryGetResource("EmptyField"),
+                    nameof(Phone) when string.IsNullOrWhiteSpace(Phone) => TryGetResource("EmptyField"),
+                    nameof(Phone) when !int.TryParse(Phone, out phone) => TryGetResource("InvalidInput"),
+                    nameof(Phone) when members.Any(m => m.Phone == Phone && m.Phone != _selectedMember.Phone) => TryGetResource("AlreadyTaken"),
+                    nameof(Email) when string.IsNullOrWhiteSpace(Email) => TryGetResource("EmptyField"),
+                    nameof(Email) when members.Any(m => string.Equals(m.Email, Email, StringComparison.OrdinalIgnoreCase) && m.Email != _selectedMember.Email) => TryGetResource("AlreadyTaken"),
+                    nameof(Address) when string.IsNullOrWhiteSpace(Address) => TryGetResource("EmptyField"),
                     _ => string.Empty
                 };
             }

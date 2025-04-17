@@ -1,6 +1,7 @@
 ﻿using Employee_And_Company_Management.Commands;
 using Library.DAO.MySQL;
 using Library.Models.Entities;
+using Library.ViewModels.Admin;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
@@ -45,26 +46,52 @@ namespace Library.ViewModels
             }
         }
 
+        private string _selectedLanguage;
+
+        public string SelectedLanguage
+        {
+            get => _selectedLanguage;
+            set
+            {
+                if (SetProperty(ref _selectedLanguage, value))
+                {
+                    ApplyLanguage();
+                }
+            }
+        }
+
+        public event Action? LanguageChanged;
+
         public ICommand ChangeThemeCommand { get; set; }
 
         public ICommand ChangeColorCommand { get; set; }
 
-        public ThemeViewModel(int id)
+        public ICommand ChangeLanguageCommand { get; set; }
+
+        private ThemeViewModel(int id)
         {
             _loggedEmployee = id;
             _settingsDAO = new SettingsDAO();
-            LoadDefaultTheme();
             ChangeThemeCommand = new RelayCommand(param => ChangeTheme(param as string), _ => CanChangeTheme());
             ChangeColorCommand = new RelayCommand(param => ChangeColor(param as string), _ => CanChangeColor());
+            ChangeLanguageCommand = new RelayCommand(param => ChangeLanguagee(param as string), _ => CanChangeLanguage());
         }
 
-        private async void LoadDefaultTheme()
+        public static async Task<ThemeViewModel> CreateAsync(int id)
+        {
+            var viewModel = new ThemeViewModel(id);
+            await viewModel.LoadDefaultTheme();
+            return viewModel;
+        }
+
+        public async Task LoadDefaultTheme()
         {
             var setting = await _settingsDAO.GetSettingByIdAsync(_loggedEmployee);
             if (setting != null)
             {
                 SelectedTheme = setting.Theme;
                 SelectedColor = setting.Color;
+                SelectedLanguage = setting.Language;
             }
         }
 
@@ -109,10 +136,23 @@ namespace Library.ViewModels
             paletteHelper.SetTheme(theme);
         }
 
-        private void ChangeTheme(string theme)
+        private void ApplyLanguage()
+        {
+            switch (_selectedLanguage)
+            {
+                case "English":
+                    ChangeLanguage("EN");
+                    break;
+                default:
+                    ChangeLanguage("SR");
+                    break;
+            }
+        }
+
+        private async void ChangeTheme(string theme)
         {
              SelectedTheme = theme;
-            _settingsDAO.SaveSettingsByIdAsync(_loggedEmployee, SelectedTheme, SelectedColor, "English");
+            _settingsDAO.SaveSettingsByIdAsync(_loggedEmployee, SelectedTheme, SelectedColor, SelectedLanguage);
         }
 
         private bool CanChangeTheme() => true;
@@ -120,7 +160,16 @@ namespace Library.ViewModels
         private void ChangeColor(string color)
         {
             SelectedColor = color;
-            _settingsDAO.SaveSettingsByIdAsync(_loggedEmployee, SelectedTheme, SelectedColor, "English");
+            _settingsDAO.SaveSettingsByIdAsync(_loggedEmployee, SelectedTheme, SelectedColor, SelectedLanguage);
+        }
+
+        private bool CanChangeLanguage() => true;
+
+        private void ChangeLanguagee(string language)
+        {
+            SelectedLanguage = language;
+            _settingsDAO.SaveSettingsByIdAsync(_loggedEmployee, SelectedTheme, SelectedColor, SelectedLanguage);
+            LanguageChanged?.Invoke();
         }
 
         private bool CanChangeColor() => true;

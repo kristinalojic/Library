@@ -105,12 +105,12 @@ namespace Library.ViewModels.Employee
             }
             else if (_pomBook != null && _pomBook.AvailableCopies < 1)
             {
-                var messageBox = new CustomMessageBox("Knjiga nije dostupna");
+                var messageBox = new CustomMessageBox(TryGetResource("BookNotAvailable"));
                 messageBox.ShowDialog();
             }
             else
             {
-                var messageBox = new CustomMessageBox("Selektujte knjigu.");
+                var messageBox = new CustomMessageBox(TryGetResource("SelectBook"));
                 messageBox.ShowDialog();
             }
         }
@@ -127,7 +127,7 @@ namespace Library.ViewModels.Employee
             }
             else
             {
-                var messageBox = new CustomMessageBox("Selektujte knjigu.");
+                var messageBox = new CustomMessageBox(TryGetResource("SelectBook"));
                 messageBox.ShowDialog();
             }
         }

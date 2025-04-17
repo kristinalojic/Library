@@ -39,7 +39,7 @@
             <TextBox x:Name="NameTextBox"
                      Grid.Row="0"
                      Grid.Column="1"
-                     materialDesign:HintAssist.Hint="Name"
+                     materialDesign:HintAssist.Hint="{DynamicResource Name}"
                      Foreground="{DynamicResource MaterialDesignBody}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      IsReadOnly="False"
@@ -54,7 +54,7 @@
                                      VerticalAlignment="Center" />
             <TextBox Grid.Row="1"
                      Grid.Column="1"
-                     materialDesign:HintAssist.Hint="Surname"
+                     materialDesign:HintAssist.Hint="{DynamicResource Surname}"
                      Foreground="{DynamicResource MaterialDesignBody}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      IsReadOnly="False"
@@ -69,7 +69,7 @@
                                      VerticalAlignment="Center" />
             <TextBox Grid.Row="2"
                      Grid.Column="1"
-                     materialDesign:HintAssist.Hint="Phone"
+                     materialDesign:HintAssist.Hint="{DynamicResource Phone}"
                      Foreground="{DynamicResource MaterialDesignBody}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      IsReadOnly="False"
@@ -100,7 +100,7 @@
             <TextBox x:Name="AddressTextBox"
                      Grid.Row="4"
                      Grid.Column="1"
-                     materialDesign:HintAssist.Hint="Address"
+                     materialDesign:HintAssist.Hint="{DynamicResource Address}"
                      Foreground="{DynamicResource MaterialDesignBody}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      IsReadOnly="False"
@@ -119,7 +119,7 @@
                         Command="{Binding CancelCommand}"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         Style="{StaticResource MaterialDesignRaisedButton}">
-                    <TextBlock Text="Cancel" />
+                    <TextBlock Text="{DynamicResource Cancel}" />
                 </Button>
                 <Button Grid.Column="1"
                         Margin="0,40,60,0"
@@ -128,7 +128,7 @@
                         Command="{Binding SubmitCommand}"
                         materialDesign:ButtonAssist.CornerRadius="5"
                         Style="{StaticResource MaterialDesignRaisedButton}">
-                    <TextBlock Text="Submit" />
+                    <TextBlock Text="{DynamicResource Submit}" />
                 </Button>
             </Grid>
         </Grid>

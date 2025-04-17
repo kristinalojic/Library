@@ -113,7 +113,7 @@ namespace Library.ViewModels.Employee
             }
             else
             {
-                var messageBox = new CustomMessageBox("Selektujte clana.");
+                var messageBox = new CustomMessageBox(TryGetResource("SelectMember"));
                 messageBox.ShowDialog();
             }
         }

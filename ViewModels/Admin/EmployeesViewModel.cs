@@ -118,28 +118,23 @@ namespace Library.ViewModels.Admin
         public ICommand ActivateCommand { get; set; }
         public ICommand UpdateEmployeeCommand { get; set; }
 
-       /* public EmployeesViewModel()
-        {
-            _employeeDAO = new EmployeeDAO();
-            LoadEmployees();
-            AddEmployeeCommand = new RelayCommand(AddEmployee, CanAddEmployee);
-            DeleteCommand = new RelayCommand(async obj => await DeleteSelectedEmployee(obj), CanDeleteSelectedEmployee);
-            ActivateCommand = new RelayCommand(async obj => await ActivateSelectedEmployee(obj), CanActivateSelectedEmployee);
-            UpdateEmployeeCommand = new RelayCommand(UpdateSelectedEmployee, CanUpdateSelectedEmployee);
-        } */
-
         private EmployeesViewModel()
         {
             _employeeDAO = new EmployeeDAO();
-
             AddEmployeeCommand = new RelayCommand(AddEmployee, CanAddEmployee);
             DeleteCommand = new RelayCommand(async obj => await DeleteSelectedEmployee(obj), CanDeleteSelectedEmployee);
             ActivateCommand = new RelayCommand(async obj => await ActivateSelectedEmployee(obj), CanActivateSelectedEmployee);
             UpdateEmployeeCommand = new RelayCommand(UpdateSelectedEmployee, CanUpdateSelectedEmployee);
         }
 
-        public static async Task<EmployeesViewModel> CreateAsync()
+        public static async Task<EmployeesViewModel> CreateAsync(int id)
         {
+            var settings = new SettingsDAO();
+            var setting = await settings.GetSettingByIdAsync(id);
+            if (setting != null)
+            {
+                ChangeLanguage(setting.Language);
+            }
             var viewModel = new EmployeesViewModel();
             await viewModel.LoadEmployeesAsync();
             return viewModel;
@@ -171,7 +166,7 @@ namespace Library.ViewModels.Admin
             }
             else
             {
-                var messageBox = new CustomMessageBox("Selektujte zaposlenog.");
+                var messageBox = new CustomMessageBox(TryGetResource("SelectEmployee"));
                 messageBox.ShowDialog();
             }
         }
@@ -185,7 +180,7 @@ namespace Library.ViewModels.Admin
             var _pomEmployee = SelectedEmployee;
             if (_pomEmployee != null)
             {
-                DeleteConfirmationDialog dialog = new DeleteConfirmationDialog("Da li ste sigurni da želite ukloniti zaposlenog?");
+                DeleteConfirmationDialog dialog = new DeleteConfirmationDialog(TryGetResource("RemoveEmployeeConfirmation"));
                 bool answer = dialog.ShowDialog() ?? false;
 
                 if (answer)
@@ -200,7 +195,7 @@ namespace Library.ViewModels.Admin
             }
             else
             {
-                var messageBox = new CustomMessageBox("Selektujte zaposlenog.");
+                var messageBox = new CustomMessageBox(TryGetResource("SelectEmployee"));
                 messageBox.ShowDialog();
             }
         }
@@ -215,7 +210,7 @@ namespace Library.ViewModels.Admin
             var _pomEmployee = SelectedEmployee;
             if (_pomEmployee != null)
             {
-                DeleteConfirmationDialog dialog = new DeleteConfirmationDialog("Da li ste sigurni da želite aktivirati zaposlenog?");
+                DeleteConfirmationDialog dialog = new DeleteConfirmationDialog(TryGetResource("ActivateEmployeeConfirmation"));
                 bool answer = dialog.ShowDialog() ?? false;
 
                 if (answer)
@@ -230,7 +225,7 @@ namespace Library.ViewModels.Admin
             }
             else
             {
-                var messageBox = new CustomMessageBox("Selektujte zaposlenog.");
+                var messageBox = new CustomMessageBox(TryGetResource("SelectEmployee"));
                 messageBox.ShowDialog();
             }
         }

@@ -24,7 +24,7 @@
             </Grid.ColumnDefinitions>
             <materialDesign:PackIcon Style="{StaticResource SearchIcon}" />
             <TextBox  Grid.Column="1"
-                      materialDesign:HintAssist.Hint="Pretrazi"
+                      materialDesign:HintAssist.Hint="{DynamicResource Search}"
                       Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                       Style="{StaticResource SearchTextBox}" />
             <Button Grid.Column="3"
@@ -35,7 +35,7 @@
                                 VerticalAlignment="Center">
                         <materialDesign:PackIcon Kind="Add"
                                                  Style="{StaticResource UserControlButtonIcon}" />
-                        <TextBlock Text="Check out" />
+                        <TextBlock Text="{DynamicResource CheckOut}" />
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -47,7 +47,7 @@
                                 VerticalAlignment="Center">
                         <materialDesign:PackIcon Kind="EyeOutline"
                                                  Style="{StaticResource UserControlButtonIcon}" />
-                        <TextBlock Text="View loans" />
+                        <TextBlock Text="{DynamicResource ViewLoans}" />
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -68,27 +68,27 @@
                                           HorizontalScrollBarVisibility="Auto"
                                           FontSize="14">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Title"
+                                        <DataGridTextColumn Header="{DynamicResource BookTitle}"
                                                             Width="2*"
                                                             Binding="{Binding Title}"
                                                             IsReadOnly="True" />
-                                        <DataGridTextColumn Header="Author"
+                                        <DataGridTextColumn Header="{DynamicResource Author}"
                                                             Width="2*"
                                                             Binding="{Binding Author}"
                                                             IsReadOnly="True" />
-                                        <DataGridTextColumn Header="Year of publication"
+                                        <DataGridTextColumn Header="{DynamicResource YearOfPublication}"
                                                             Width="1.5*"
                                                             Binding="{Binding YearOfPublication}"
                                                             IsReadOnly="True" />
-                                        <DataGridTextColumn Header="Copies"
+                                        <DataGridTextColumn Header="{DynamicResource Copies}"
                                                             Width="*"
                                                             Binding="{Binding Copies}"
                                                             IsReadOnly="True" />
-                                        <DataGridTextColumn Header="Available"
+                                        <DataGridTextColumn Header="{DynamicResource Available}"
                                                             Width="*"
                                                             Binding="{Binding AvailableCopies}"
                                                             IsReadOnly="True" />
-                                        <DataGridTextColumn Header="Genre"
+                                        <DataGridTextColumn Header="{DynamicResource Genre}"
                                                             Width="1.5*"
                                                             Binding="{Binding Genre.Name}"
                                                             IsReadOnly="True" />
@@ -101,7 +101,7 @@
                                          Value="0">
                                 <Setter Property="Content">
                                     <Setter.Value>
-                                        <TextBlock Text="No data"
+                                        <TextBlock Text="{DynamicResource NoData}"
                                                    HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
                                                    FontSize="26"

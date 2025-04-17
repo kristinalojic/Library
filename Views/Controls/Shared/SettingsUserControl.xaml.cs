@@ -1,4 +1,5 @@
 ﻿using Library.ViewModels;
+using Library.ViewModels.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,20 @@ namespace Library.Views.Controls.Shared
     /// </summary>
     public partial class SettingsUserControl : UserControl
     {
+        private readonly int _id;
+
         public SettingsUserControl(int id)
         {
             InitializeComponent();
-            DataContext = new ThemeViewModel(id);
+            _id = id;
+            this.Loaded += SettingsUserControl_Loaded;
         }
+
+        private async void SettingsUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            ThemeViewModel viewModel = await ThemeViewModel.CreateAsync(_id);
+            DataContext = viewModel;
+        }
+
     }
 }

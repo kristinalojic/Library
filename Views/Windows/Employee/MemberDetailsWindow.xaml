@@ -16,7 +16,7 @@
     </Window.Resources>
     <Grid Background="{DynamicResource MaterialDesignPaper}">
         <TabControl materialDesign:ColorZoneAssist.Mode="SecondaryLight">
-            <TabItem Header="Loans">
+            <TabItem Header="{DynamicResource Loans}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -39,7 +39,7 @@
                                             VerticalAlignment="Center">
                                     <materialDesign:PackIcon Kind="CheckAll"
                                                              Style="{StaticResource UserControlButtonIcon}" />
-                                    <TextBlock Text="Check in" />
+                                    <TextBlock Text="{DynamicResource CheckIn}" />
                                 </StackPanel>
                             </Button.Content>
                         </Button>
@@ -51,7 +51,7 @@
                                             VerticalAlignment="Center">
                                     <materialDesign:PackIcon Kind="CalendarOutline"
                                                              Style="{StaticResource UserControlButtonIcon}" />
-                                    <TextBlock Text="Extend" />
+                                    <TextBlock Text="{DynamicResource Extend}" />
                                 </StackPanel>
                             </Button.Content>
                         </Button>
@@ -72,23 +72,23 @@
                                                       HorizontalScrollBarVisibility="Auto"
                                                       FontSize="14">
                                                 <DataGrid.Columns>
-                                                    <DataGridTextColumn Header="Title"
+                                                    <DataGridTextColumn Header="{DynamicResource BookTitle}"
                                                                         Width="2*"
                                                                         Binding="{Binding BookNavigation.Title}"
                                                                         IsReadOnly="True" />
-                                                    <DataGridTextColumn Header="Author"
+                                                    <DataGridTextColumn Header="{DynamicResource Author}"
                                                                         Width="2*"
                                                                         Binding="{Binding BookNavigation.Author}"
                                                                         IsReadOnly="True" />
-                                                    <DataGridTextColumn Header="Issue date"
+                                                    <DataGridTextColumn Header="{DynamicResource IssueDate}"
                                                                         Width="2*"
                                                                         Binding="{Binding IssueDate, StringFormat={}{0:d.M.yyyy.}}"
                                                                         IsReadOnly="True" />
-                                                    <DataGridTextColumn Header="Due date"
+                                                    <DataGridTextColumn Header="{DynamicResource DueDate}"
                                                                         Width="2*"
                                                                         Binding="{Binding DueDate, StringFormat={}{0:d.M.yyyy.}}"
                                                                         IsReadOnly="True" />
-                                                    <DataGridTextColumn Header="Extended"
+                                                    <DataGridTextColumn Header="{DynamicResource Extended}"
                                                                         Width="*"
                                                                         Binding="{Binding HasBeenExtended, Converter={StaticResource BoolToYesNoConverter}}"
                                                                         IsReadOnly="True" />
@@ -101,7 +101,7 @@
                                                      Value="0">
                                             <Setter Property="Content">
                                                 <Setter.Value>
-                                                    <TextBlock Text="No data"
+                                                    <TextBlock Text="{DynamicResource NoData}"
                                                                HorizontalAlignment="Center"
                                                                VerticalAlignment="Center"
                                                                FontSize="26"
@@ -116,7 +116,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Loan history"
+            <TabItem Header="{DynamicResource LoanHistory}"
                      Background="{DynamicResource MaterialDesignPaper}">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -146,19 +146,19 @@
                                                       HorizontalScrollBarVisibility="Auto"
                                                       FontSize="14">
                                                 <DataGrid.Columns>
-                                                    <DataGridTextColumn Header="Title"
+                                                    <DataGridTextColumn Header="{DynamicResource BookTitle}"
                                                                         Width="2*"
                                                                         Binding="{Binding BookNavigation.Title}"
                                                                         IsReadOnly="True" />
-                                                    <DataGridTextColumn Header="Author"
+                                                    <DataGridTextColumn Header="{DynamicResource Author}"
                                                                         Width="2*"
                                                                         Binding="{Binding BookNavigation.Author}"
                                                                         IsReadOnly="True" />
-                                                    <DataGridTextColumn Header="Issue date"
+                                                    <DataGridTextColumn Header="{DynamicResource IssueDate}"
                                                                         Width="2*"
                                                                         Binding="{Binding IssueDate, StringFormat={}{0:d.M.yyyy.}}"
                                                                         IsReadOnly="True" />
-                                                    <DataGridTextColumn Header="Due date"
+                                                    <DataGridTextColumn Header="{DynamicResource DueDate}"
                                                                         Width="2*"
                                                                         Binding="{Binding DueDate, StringFormat={}{0:d.M.yyyy.}}"
                                                                         IsReadOnly="True" />
@@ -171,7 +171,7 @@
                                                      Value="0">
                                             <Setter Property="Content">
                                                 <Setter.Value>
-                                                    <TextBlock Text="No data"
+                                                    <TextBlock Text="{DynamicResource NoData}"
                                                                HorizontalAlignment="Center"
                                                                VerticalAlignment="Center"
                                                                FontSize="26"
@@ -186,7 +186,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Update">
+            <TabItem Header="{DynamicResource Update}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -211,7 +211,7 @@
                                              HorizontalAlignment="Center" />
                     <TextBox Grid.Row="0"
                              Grid.Column="1"
-                             materialDesign:HintAssist.Hint="Name"
+                             materialDesign:HintAssist.Hint="{DynamicResource Name}"
                              Foreground="{DynamicResource MaterialDesignBody}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              IsReadOnly="False"
@@ -226,7 +226,7 @@
                                              HorizontalAlignment="Center" />
                     <TextBox Grid.Row="1"
                              Grid.Column="1"
-                             materialDesign:HintAssist.Hint="Surname"
+                             materialDesign:HintAssist.Hint="{DynamicResource Surname}"
                              Foreground="{DynamicResource MaterialDesignBody}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              IsReadOnly="False"
@@ -241,7 +241,7 @@
                                              HorizontalAlignment="Center" />
                     <TextBox Grid.Row="2"
                              Grid.Column="1"
-                             materialDesign:HintAssist.Hint="Phone"
+                             materialDesign:HintAssist.Hint="{DynamicResource Phone}"
                              Foreground="{DynamicResource MaterialDesignBody}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              IsReadOnly="False"
@@ -272,7 +272,7 @@
                     <TextBox x:Name="AddressTextBox"
                              Grid.Row="4"
                              Grid.Column="1"
-                             materialDesign:HintAssist.Hint="Address"
+                             materialDesign:HintAssist.Hint="{DynamicResource Address}"
                              Foreground="{DynamicResource MaterialDesignBody}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              IsReadOnly="False"
@@ -321,7 +321,7 @@
                                 materialDesign:ButtonAssist.CornerRadius="5"
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignRaisedButton}">
-                            <TextBlock Text="Submit" />
+                            <TextBlock Text="{DynamicResource Update}" />
                         </Button>
                     </Grid>
                 </Grid>

@@ -21,15 +21,15 @@ namespace Library.Views.Controls.Admin
     /// </summary>
     public partial class EmployeesUserControl : UserControl
     {
-        public EmployeesUserControl()
+        public EmployeesUserControl(int id)
         {
             InitializeComponent();
-            this.Loaded += EmployeesUserControl_Loaded;
+            this.Loaded += (s, e) => EmployeesUserControl_Loaded(s, e, id);
         }
 
-        private async void EmployeesUserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void EmployeesUserControl_Loaded(object sender, RoutedEventArgs e, int id)
         {
-            EmployeesViewModel viewModel = await EmployeesViewModel.CreateAsync();
+            EmployeesViewModel viewModel = await EmployeesViewModel.CreateAsync(id);
             DataContext = viewModel; 
         }
     }

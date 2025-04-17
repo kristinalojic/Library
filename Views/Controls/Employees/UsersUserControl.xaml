@@ -24,7 +24,7 @@
             </Grid.ColumnDefinitions>
             <materialDesign:PackIcon Style="{StaticResource SearchIcon}" />
             <TextBox  Grid.Column="1"
-                      materialDesign:HintAssist.Hint="Pretrazi"
+                      materialDesign:HintAssist.Hint="{DynamicResource Search}"
                       Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                       Style="{StaticResource SearchTextBox}" />
             <Button Grid.Column="3"
@@ -35,7 +35,7 @@
                                 VerticalAlignment="Center">
                         <materialDesign:PackIcon Kind="Add"
                                                  Style="{StaticResource UserControlButtonIcon}" />
-                        <TextBlock Text="Add member" />
+                        <TextBlock Text="{DynamicResource AddBook}" />
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -47,7 +47,7 @@
                                 VerticalAlignment="Center">
                         <materialDesign:PackIcon Kind="EyeOutline"
                                                  Style="{StaticResource UserControlButtonIcon}" />
-                        <TextBlock Text="Details" />
+                        <TextBlock Text="{DynamicResource Details}" />
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -68,25 +68,25 @@
                                           HorizontalScrollBarVisibility="Auto"
                                           FontSize="14">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Card number"
+                                        <DataGridTextColumn Header="{DynamicResource CardNumber}"
                                                             Binding="{Binding MembershipCardNumber}"
                                                             IsReadOnly="True" />
-                                        <DataGridTextColumn Header="Name"
+                                        <DataGridTextColumn Header="{DynamicResource Name}"
                                                             Binding="{Binding Name}"
                                                             IsReadOnly="True" />
-                                        <DataGridTextColumn Header="Surname"
+                                        <DataGridTextColumn Header="{DynamicResource Surname}"
                                                             Binding="{Binding Surname}"
                                                             IsReadOnly="True" />
                                         <DataGridTextColumn Header="Email"
                                                             Binding="{Binding Email}"
                                                             IsReadOnly="True" />
-                                        <DataGridTextColumn Header="Phone"
+                                        <DataGridTextColumn Header="{DynamicResource Phone}"
                                                             Binding="{Binding Phone}"
                                                             IsReadOnly="True" />
-                                        <DataGridTextColumn Header="Address"
+                                        <DataGridTextColumn Header="{DynamicResource Address}"
                                                             Binding="{Binding Address}"
                                                             IsReadOnly="True" />
-                                        <DataGridTextColumn Header="Membership expiration"
+                                        <DataGridTextColumn Header="{DynamicResource MembershipExpiration}"
                                                             Binding="{Binding MembershipFee.Expiration, StringFormat='dd.MM.yyyy'}"
                                                             IsReadOnly="True" />
                                     </DataGrid.Columns>
@@ -98,7 +98,7 @@
                                          Value="0">
                                 <Setter Property="Content">
                                     <Setter.Value>
-                                        <TextBlock Text="No data"
+                                        <TextBlock Text="{DynamicResource NoData}"
                                                    HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
                                                    FontSize="26"

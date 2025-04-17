@@ -23,13 +23,13 @@
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center"
                         Margin="10">
-                <Button Content="No"
+                <Button Content="{DynamicResource No}"
                         Background="{DynamicResource MaterialDesign.Brush.Primary}"
                         Width="100"
                         Height="30"
                         Click="NoButton_Click"
                         Margin="5" />
-                <Button Content="Yes"
+                <Button Content="{DynamicResource Yes}"
                         Background="{DynamicResource MaterialDesign.Brush.Primary}"
                         Width="100"
                         Height="30"

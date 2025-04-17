@@ -157,13 +157,13 @@ namespace Library.ViewModels.Admin
                 };
                 if (await _employeeDAO.UpdateEmployeeAsync(NewEmployee))
                 {
-                    var messageBox = new CustomMessageBox("Zaposleni je azuriran.");
+                    var messageBox = new CustomMessageBox(TryGetResource("EmployeeUpdated"));
                     messageBox.ShowDialog();
                     await _employeesViewModel.LoadEmployeesAsync();
                 }
                 else
                 {
-                    var messageBox = new CustomMessageBox("Nije moguće azurirati zaposlenog");
+                    var messageBox = new CustomMessageBox(TryGetResource("EmployeeUpdateFailed"));
                     messageBox.ShowDialog();
                 }
             }
@@ -183,19 +183,19 @@ namespace Library.ViewModels.Admin
                 int jmbg = 0;
                 return columnName switch
                 {
-                    nameof(Name) when string.IsNullOrWhiteSpace(Name) => "Ime ne moze biti prazno.",
-                    nameof(Surname) when string.IsNullOrWhiteSpace(Surname) => "Prezime ne moze biti prazno.",
-                    nameof(Username) when string.IsNullOrWhiteSpace(Username) => "Korisnicko ime ne moze biti prazno.",
-                    nameof(Username) when employees.Any(e => string.Equals(e.Username, Username, StringComparison.OrdinalIgnoreCase) && e.Username != _selecteEmployee.Username) => "Korisnicko ime je zauzeto.",
-                    nameof(JMBG) when string.IsNullOrWhiteSpace(JMBG) => "JMBG ne moze biti prazan.",
-                    nameof(JMBG) when !int.TryParse(JMBG, out jmbg) => "JMBG nije validan.",
-                    nameof(JMBG) when employees.Any(e => e.Jbmg == JMBG && e.Jbmg != _selecteEmployee.Jbmg) => "Postoji korisnik sa JMBGom.",
-                    nameof(Phone) when string.IsNullOrWhiteSpace(Phone) => "Broj telefona ne moze biti prazan.",
-                    nameof(Phone) when !int.TryParse(Phone, out jmbg) => "Broj telefona nije validan.",
-                    nameof(Phone) when employees.Any(e => e.Phone == Phone && e.Phone != _selecteEmployee.Phone) => "Telefon postoji.",
-                    nameof(Email) when string.IsNullOrWhiteSpace(Email) => "Email ne može biti prazan.",
-                    nameof(Email) when employees.Any(e => string.Equals(e.Email, Email, StringComparison.OrdinalIgnoreCase) && e.Email != _selecteEmployee.Email) => "Email postoji.",
-                    nameof(Address) when string.IsNullOrWhiteSpace(Address) => "Adresa ne može biti prazana.",
+                    nameof(Name) when string.IsNullOrWhiteSpace(Name) => TryGetResource("EmptyField"),
+                    nameof(Surname) when string.IsNullOrWhiteSpace(Surname) => TryGetResource("EmptyField"),
+                    nameof(Username) when string.IsNullOrWhiteSpace(Username) => TryGetResource("EmptyField"),
+                    nameof(Username) when employees.Any(e => string.Equals(e.Username, Username, StringComparison.OrdinalIgnoreCase) && e.Username != _selecteEmployee.Username) => TryGetResource("AlreadyTaken"),
+                    nameof(JMBG) when string.IsNullOrWhiteSpace(JMBG) => TryGetResource("EmptyField"),
+                    nameof(JMBG) when !int.TryParse(JMBG, out jmbg) => TryGetResource("InvalidInput"),
+                    nameof(JMBG) when employees.Any(e => e.Jbmg == JMBG && e.Jbmg != _selecteEmployee.Jbmg) => TryGetResource("AlreadyTaken"),
+                    nameof(Phone) when string.IsNullOrWhiteSpace(Phone) => TryGetResource("EmptyField"),
+                    nameof(Phone) when !int.TryParse(Phone, out jmbg) => TryGetResource("InvalidInput"),
+                    nameof(Phone) when employees.Any(e => e.Phone == Phone && e.Phone != _selecteEmployee.Phone) => TryGetResource("AlreadyTaken"),
+                    nameof(Email) when string.IsNullOrWhiteSpace(Email) => TryGetResource("EmptyField"),
+                    nameof(Email) when employees.Any(e => string.Equals(e.Email, Email, StringComparison.OrdinalIgnoreCase) && e.Email != _selecteEmployee.Email) => TryGetResource("AlreadyTaken"),
+                    nameof(Address) when string.IsNullOrWhiteSpace(Address) => TryGetResource("EmptyField"),
                     _ => string.Empty
                 };
             }

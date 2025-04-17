@@ -38,7 +38,7 @@
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Account"
                                                      Style="{StaticResource MenuIcon}" />
-                            <TextBlock Text="Employees"
+                            <TextBlock Text="{DynamicResource Employees}"
                                        Style="{StaticResource TextBlockMenu}" />
                         </StackPanel>
                     </ListBoxItem>
@@ -46,7 +46,7 @@
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Book"
                                                      Style="{StaticResource MenuIcon}" />
-                            <TextBlock Text="Books"
+                            <TextBlock Text="{DynamicResource Books}"
                                        Style="{StaticResource TextBlockMenu}" />
                         </StackPanel>
                     </ListBoxItem>
@@ -61,7 +61,7 @@
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Settings"
                                                      Style="{StaticResource MenuIcon}" />
-                            <TextBlock Text="Settings"
+                            <TextBlock Text="{DynamicResource Settings}"
                                        Style="{StaticResource TextBlockMenu}" />
                         </StackPanel>
                     </ListBoxItem>
@@ -69,7 +69,7 @@
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Logout"
                                                      Style="{StaticResource MenuIcon}" />
-                            <TextBlock Text="Log out"
+                            <TextBlock Text="{DynamicResource Logout}"
                                        Style="{StaticResource TextBlockMenu}" />
                         </StackPanel>
                     </ListBoxItem>

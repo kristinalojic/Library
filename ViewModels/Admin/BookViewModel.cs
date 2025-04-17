@@ -146,14 +146,14 @@ namespace Library.ViewModels
                 };
                 if (await _bookDAO.AddBookAsync(NewBook))
                 {
-                    var messageBox = new CustomMessageBox("Knjiga uspjesno dodana.");
+                    var messageBox = new CustomMessageBox(TryGetResource("BookSuccessfullyAdded"));
                     messageBox.ShowDialog();
                     await _adminBooksViewModel.LoadBooks();
                     books.Add(NewBook);
                 }
                 else
                 {
-                    var messageBox = new CustomMessageBox("Nije moguće dodati knjigu");
+                    var messageBox = new CustomMessageBox(TryGetResource("UnableToAddBook"));
                     messageBox.ShowDialog();
                 }
             }
@@ -173,15 +173,15 @@ namespace Library.ViewModels
                 int year = 0, copies = 0;
                 return columnName switch
                 {
-                    nameof(Title) when string.IsNullOrWhiteSpace(Title) => "Naslov ne može biti prazan.",
-                    nameof(Title) when books.Any(b => string.Equals(b.Title, Title, StringComparison.OrdinalIgnoreCase) && string.Equals(b.Author, Author, StringComparison.OrdinalIgnoreCase)) => "Knjiga vec postoji.",
-                    nameof(Author) when string.IsNullOrWhiteSpace(Author) => "Autor ne može biti prazan.",
-                    nameof(YearOfPublication) when string.IsNullOrWhiteSpace(YearOfPublication) => "Godina izdanja ne može biti prazna.",
-                    nameof(YearOfPublication) when !int.TryParse(YearOfPublication, out year) => "Godina izdanja mora biti broj.",
-                    nameof(YearOfPublication) when year <= 0 || year > DateTime.Now.Year => "Godina izdanja mora biti validan broj.",
-                    nameof(Copies) when string.IsNullOrWhiteSpace(Copies) => "Broj primjeraka ne može biti prazna.",
-                    nameof(Copies) when !int.TryParse(Copies.ToString(), out copies) => "Broj kopija mora biti broj.",
-                    nameof(Copies) when copies <= 0 => "Broj kopija mora biti validan broj.",
+                    nameof(Title) when string.IsNullOrWhiteSpace(Title) => TryGetResource("EmptyField"),
+                    nameof(Title) when books.Any(b => string.Equals(b.Title, Title, StringComparison.OrdinalIgnoreCase) && string.Equals(b.Author, Author, StringComparison.OrdinalIgnoreCase)) => TryGetResource("BookAlreadyExists"),
+                    nameof(Author) when string.IsNullOrWhiteSpace(Author) => TryGetResource("EmptyField"),
+                    nameof(YearOfPublication) when string.IsNullOrWhiteSpace(YearOfPublication) => TryGetResource("EmptyField"),
+                    nameof(YearOfPublication) when !int.TryParse(YearOfPublication, out year) => TryGetResource("InvalidInput"),
+                    nameof(YearOfPublication) when year <= 0 || year > DateTime.Now.Year => TryGetResource("InvalidInput"),
+                    nameof(Copies) when string.IsNullOrWhiteSpace(Copies) => TryGetResource("EmptyField"),
+                    nameof(Copies) when !int.TryParse(Copies.ToString(), out copies) => TryGetResource("InvalidInput"),
+                    nameof(Copies) when copies <= 0 => TryGetResource("InvalidInput"),
                     _ => string.Empty
                 };
             }

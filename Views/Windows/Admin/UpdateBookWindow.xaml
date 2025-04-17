@@ -35,7 +35,7 @@
                                      Foreground="{DynamicResource MaterialDesignBody}" />
             <TextBox Grid.Row="0"
                      Grid.Column="1"
-                     materialDesign:HintAssist.Hint="Title"
+                     materialDesign:HintAssist.Hint="{DynamicResource BookTitle}"
                      Foreground="{DynamicResource MaterialDesignBody}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      IsReadOnly="False"
@@ -50,7 +50,7 @@
                                      VerticalAlignment="Center" />
             <TextBox Grid.Row="1"
                      Grid.Column="1"
-                     materialDesign:HintAssist.Hint="Author"
+                     materialDesign:HintAssist.Hint="{DynamicResource Author}"
                      Foreground="{DynamicResource MaterialDesignBody}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      IsReadOnly="False"
@@ -65,7 +65,7 @@
                                      VerticalAlignment="Center" />
             <ComboBox Grid.Row="2"
                       Grid.Column="1"
-                      materialDesign:HintAssist.Hint="Genre"
+                      materialDesign:HintAssist.Hint="{DynamicResource Genre}"
                       Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                       Foreground="{DynamicResource MaterialDesignBody}"
                       ItemsSource="{Binding Genres, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
@@ -82,7 +82,7 @@
                                      VerticalAlignment="Center" />
             <TextBox Grid.Row="3"
                      Grid.Column="1"
-                     materialDesign:HintAssist.Hint="Year of publication"
+                     materialDesign:HintAssist.Hint="{DynamicResource YearOfPublication}"
                      Foreground="{DynamicResource MaterialDesignBody}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      IsReadOnly="False"
@@ -97,7 +97,7 @@
                                      VerticalAlignment="Center" />
             <TextBox Grid.Row="4"
                      Grid.Column="1"
-                     materialDesign:HintAssist.Hint="Copies"
+                     materialDesign:HintAssist.Hint="{DynamicResource Copies}"
                      Foreground="{DynamicResource MaterialDesignBody}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      IsReadOnly="False"
@@ -116,7 +116,7 @@
                         materialDesign:ButtonAssist.CornerRadius="5"
                         Command="{Binding CancelCommand}"
                         Style="{StaticResource MaterialDesignRaisedButton}">
-                    <TextBlock Text="Cancel" />
+                    <TextBlock Text="{DynamicResource Cancel}" />
                 </Button>
                 <Button Grid.Column="1"
                         Margin="0,40,60,0"
@@ -126,7 +126,7 @@
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Command="{Binding SubmitCommand}"
                         Style="{StaticResource MaterialDesignRaisedButton}">
-                    <TextBlock Text="Submit" />
+                    <TextBlock Text="{DynamicResource Update}" />
                 </Button>
             </Grid>
         </Grid>

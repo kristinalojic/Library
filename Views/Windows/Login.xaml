@@ -36,13 +36,13 @@
                             Orientation="Vertical"
                             Margin="0,70,0,0"
                             Grid.Row="0">
-                    <TextBlock Text="Welcome"
+                    <TextBlock Text="{DynamicResource Welcome}"
                                Style="{StaticResource WelcomeTextBlock}" />
-                    <TextBlock Text="Sign in to continue."
+                    <TextBlock Text="{DynamicResource SignInToContinue}"
                                Style="{StaticResource SignInTextBlock}"
                                Margin="0,5,0,0" />
                     <TextBox x:Name="UsernameTextBox"
-                             materialDesign:HintAssist.Hint="Username"
+                             materialDesign:HintAssist.Hint="{DynamicResource Username}"
                              materialDesign:TextFieldAssist.UnderlineBrush="LightGray"
                              materialDesign:HintAssist.Foreground="LightGray"
                              Style="{StaticResource TextBoxStyle2}"
@@ -50,7 +50,7 @@
                              Foreground="LightGray"
                              Padding="0,0,0,3"
                              Margin="0,35,0,0" />
-                    <PasswordBox materialDesign:HintAssist.Hint="Password"
+                    <PasswordBox materialDesign:HintAssist.Hint="{DynamicResource Password}"
                                  materialDesign:TextFieldAssist.UnderlineBrush="LightGray"
                                  materialDesign:PasswordBoxAssist.Password="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource PasswordBoxStyle2}"
@@ -58,7 +58,7 @@
                     <TextBlock Style="{StaticResource ErrorTextBlock}"
                                Text="{Binding Message}"
                                Margin="0,30,0,0" />
-                    <Button Content="LOG IN"
+                    <Button Content="{DynamicResource Login}"
                             Style="{StaticResource LoginButtonStyle}"
                             Command="{Binding LoginCommand}">
                         <Button.Template>
@@ -75,6 +75,8 @@
                     </Button>
                 </StackPanel>
                 <ComboBox Width="80"
+                          SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
+                          ItemsSource="{Binding AvailableLanguages}"
                           Foreground="White"
                           Background="Transparent"
                           HorizontalAlignment="Right"
@@ -134,9 +136,6 @@
                             </Grid>
                         </ControlTemplate>
                     </ComboBox.Template>
-                    <ComboBoxItem Content="EN"
-                                  IsSelected="True" />
-                    <ComboBoxItem Content="SR" />
                 </ComboBox>
             </Grid>
         </Border>

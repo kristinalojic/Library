@@ -146,7 +146,7 @@ namespace Library.ViewModels.Employee
                 };
                 if (await _loanDAO.AddLoanAsync(NewLoan))
                 {
-                    var messageBox = new CustomMessageBox("Zaduzenje dodano.");
+                    var messageBox = new CustomMessageBox(TryGetResource("BookAssigned"));
                     messageBox.ShowDialog();
                     _selectedBook.AvailableCopies--;
                     await _bookDAO.UpdateBookAsync(_selectedBook);
@@ -155,7 +155,7 @@ namespace Library.ViewModels.Employee
                 }
                 else
                 {
-                    var messageBox = new CustomMessageBox("Nije moguće dodati zaduzenje");
+                    var messageBox = new CustomMessageBox(TryGetResource("CannotAssignBook"));
                     messageBox.ShowDialog();
                 }
             }
@@ -188,9 +188,9 @@ namespace Library.ViewModels.Employee
                 switch (columnName)
                 {
                     case nameof(SelectedMember):
-                        return SelectedMember == null ? "Nevalidan unos za član." : string.Empty;
+                        return SelectedMember == null ? TryGetResource("InvalidInput") : string.Empty;
                     case nameof(SelectedDate):
-                        return SelectedDate == default || SelectedDate <= DateTime.Today ? "Nevalidan datum." : string.Empty;
+                        return SelectedDate == default || SelectedDate <= DateTime.Today ? TryGetResource("InvalidInput") : string.Empty;
                     default:
                         return string.Empty;
                 }

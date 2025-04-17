@@ -118,14 +118,14 @@ namespace Library.ViewModels.Employee
                 };
                 if (await _memberDAO.AddMemberAsync(NewMember))
                 {
-                    var messageBox = new CustomMessageBox("Clan uspješno dodan.");
+                    var messageBox = new CustomMessageBox(TryGetResource("MemberAddedSuccessfully"));
                     messageBox.ShowDialog();
                     await _membersViewModel.LoadMembers();
                     members.Add(NewMember);
                 }
                 else
                 {
-                    var messageBox = new CustomMessageBox("Nije moguće dodati clana");
+                    var messageBox = new CustomMessageBox(TryGetResource("UnableToAddMember"));
                     messageBox.ShowDialog();
                 }
             }
@@ -145,14 +145,14 @@ namespace Library.ViewModels.Employee
                 int jmbg = 0;
                 return columnName switch
                 {
-                    nameof(Name) when string.IsNullOrWhiteSpace(Name) => "Ime ne moze biti prazno.",
-                    nameof(Surname) when string.IsNullOrWhiteSpace(Surname) => "Prezime ne moze biti prazno.",
-                    nameof(Phone) when string.IsNullOrWhiteSpace(Phone) => "Broj telefona ne moze biti prazan.",
-                    nameof(Phone) when !int.TryParse(Phone, out jmbg) => "Broj telefona nije validan.",
-                    nameof(Phone) when members.Any(e => e.Phone == Phone) => "Telefon postoji.",
-                    nameof(Email) when string.IsNullOrWhiteSpace(Email) => "Email ne može biti prazan.",
-                    nameof(Email) when members.Any(e => string.Equals(e.Email, Email, StringComparison.OrdinalIgnoreCase)) => "Email postoji.",
-                    nameof(Address) when string.IsNullOrWhiteSpace(Address) => "Adresa ne može biti prazana.",
+                    nameof(Name) when string.IsNullOrWhiteSpace(Name) => TryGetResource("EmptyField"),
+                    nameof(Surname) when string.IsNullOrWhiteSpace(Surname) => TryGetResource("EmptyField"),
+                    nameof(Phone) when string.IsNullOrWhiteSpace(Phone) => TryGetResource("EmptyField"),
+                    nameof(Phone) when !int.TryParse(Phone, out jmbg) => TryGetResource("InvalidInput"),
+                    nameof(Phone) when members.Any(e => e.Phone == Phone) => TryGetResource("AlreadyTaken"),
+                    nameof(Email) when string.IsNullOrWhiteSpace(Email) => TryGetResource("EmptyField"),
+                    nameof(Email) when members.Any(e => string.Equals(e.Email, Email, StringComparison.OrdinalIgnoreCase)) => TryGetResource("AlreadyTaken"),
+                    nameof(Address) when string.IsNullOrWhiteSpace(Address) => TryGetResource("EmptyField"),
                     _ => string.Empty
                 };
             }
