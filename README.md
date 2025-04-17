@@ -72,7 +72,7 @@ Tabela prikazuje informacije o trenutno dostupnim knjigama. Iznad nje se nalaze 
 
 ![Image](https://github.com/user-attachments/assets/af4810bb-b13c-4ad5-afe3-315a178890ea)
 
-**Dodaj** otvara formu za unos nove knjige. Sistem provjerava da li već postoji knjiga sa istim nazivom i autorom; upozorenje se prikazuje u slučaju poklapanja. **"Otkaži"** prekida unos.
+**Dodaj** otvara formu za unos nove knjige. Sistem provjerava da li već postoji knjiga sa istim nazivom i autorom i prikazuje upozorenje u slučaju poklapanja. **"Otkaži"** prekida unos.
 
   ![Image](https://github.com/user-attachments/assets/ff4635b1-a3b1-49b1-82f8-f3469f963f0c)
   
